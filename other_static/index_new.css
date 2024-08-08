@@ -1,0 +1,148 @@
+html {
+    font-size: 16px;
+
+}
+
+body{
+
+    font-family: 'Roboto', sans-serif; /* шрифт который мы подключили отдельно */
+    font-size: 16px;
+    font-weight:400;
+    color:#000;
+    background-color:#fff;
+    min-width:320px; /*минимальная оптимальная ширина экрана */
+
+
+}
+
+/* Добавляем адаптивность для всех картинок, чтобы они адаптировались под тот блок где они помещены*/
+/* это делается дыумя параметрами */
+img {
+    max-width: 100%;
+    height:auto;
+}
+.card-cont{
+    position:relative ;
+    float:right;
+    width:50%
+}
+/* Добавляем отступы для всех секций  50px сверху отступ,а слева и справа 0*/
+/* у нас будет контентная часть  которая будет помешена в секции и для того что бы мы для каждой секции не задавали отступы */
+section {
+    padding: 50px 0; /* устан-ет внутр. отступы внутри эл-та*/
+}
+ /* Настройка ссылок */
+ a{
+    color:#111;
+ }
+/* при наведении */
+ a:hover {
+    color:#555;
+ }
+ /* Начало стили для навигац панели */
+ .bg-body-tertiary .navbar-nav .nav-link {
+    color:#111;
+    font-weight: 500;
+    text-transform: uppercase;
+ }
+
+ .top-menu li a::after { /*after псевдо эл-т позвол. добавить контент после выбронного эл-та*/
+    content:'';
+    display: block;
+    width:100%;
+    background-color:#111;
+    height:1px;
+    transition:all .3s; /*плавность*/
+    transform: scale(0); /* скрываем контант чтобы его не было видно */
+
+ }
+
+ /* При наведении transform меняет свое значение и повляется после наведения*/
+.top-menu li a:hover::after {
+    transform:scale(1);
+}
+
+.modal-body img {
+    width:50px;
+}
+ /*  Конец стили для навигац панели */
+@media screen and (min-width:992px) {
+    .navbar .container-fluid,.navbar-expand-lg .navbar-collapse, .navbar-expand-lg .navbar-nav {
+        flex-direction:column;
+        position:relative;
+    }
+    .navbar {
+        width:20%;
+    }
+    body .navbar {
+        display:inline-block;
+    }
+    #navbarhorixont {
+        flex-direction:row;
+        position: relative;
+        float:right;
+
+    .card-cont{
+    flex-direction:row;
+    max-width:10px;
+}
+
+
+    }
+    #twonavbar {
+        width:80%;
+        float:right;
+
+    }
+    .cardc {
+    min-height:350px;
+    display: flex; /* позволет контролировать элементы 1-уровня этого контейнера и прим. разн. св-ва */
+    justify-content:left;
+    width: 80%;
+    flex-direction: row; /* размешаем эл-ты в колонку */
+    border-radius: 4px; /* позв-т закруглить углы строчных и блочных эл-ов*/
+    transition : 0.2s; /* плавно изм-т св-ва блока при наведении и наоборот */
+    /*position: relative ; /* уста-ка споб. позиц-я относ. окна брауз. relative- полож. эл-та уст-ся относит. его исх. места */
+
+}
+.cardc{
+
+    align-items:align-content;
+
+}
+.card-cont{
+    display:flex;
+    max-width:10px;
+}
+
+
+.body-content {
+
+    display:flex;
+    width:80%;
+
+}
+
+
+/* сво-во при наведении мыши */
+    .cardc:hover {
+  box-shadow: 4px 8px 16px rgba(255, 102, 51, 0.2);
+}
+    .cardc-top {
+        flex:0 0 200px; /* Задаем высоту 220px, запрещаем расширение и сужение по высоте */
+        position:relative;
+    }
+    .cardc-image {
+        display:block; /* задаем блочный тип этому элементу */
+       /*position:absolute; /* эл-т исчезает из того места где должен быть остальн. эл-ты распол. так будто этого эл-та и не было*/
+
+    }
+.cardc-price::before {
+  content: "Со скидкой";
+  font-weight: 400;
+  font-size: 13px;
+  color: #bfbfbf;
+}
+
+
+}

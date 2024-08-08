@@ -1,0 +1,72 @@
+{% extends 'doors/base_new.html' %}
+{% load static %}
+{% block categoy-mezh-doors %}
+<div class="navbar-vertical-2">
+
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Межкомнатные двери</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Входные двери</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Складные двери</a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="#">Скрытые двери</a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="#">Специальные двери</a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="#">Арки и порталы</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Плинтус</a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="#">Деко рейка</a>
+        </li><li class="nav-item">
+          <a class="nav-link" href="#">Фурнитура и прочее</a>
+        </li>
+
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
+  </div>
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container-sm card-cont">
+<div class="cardc">
+
+        {% for object in obj %}
+        <div class="cardc-top">
+        <div class="cardc-name"> {{object.title}}</div>
+        <div class="cardc-color"> </div>
+        {% for value in object.pictures %}
+        <div class="cardc-image"><img src="{{value.small}}" class="image_index"></div>
+        {% endfor %}
+        <div class="cardc-price">{{object.price}}</div>
+
+        <form action="{% url 'cart:cart_add' object.id %}" method="post">
+            {% csrf_token %}
+            {{cart_form}}
+            <input type="submit" value="добавить" >
+        </form>
+             </div>
+        {% endfor %}
+
+</div>
+</div>
+
+{% endblock %}

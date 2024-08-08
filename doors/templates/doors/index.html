@@ -1,0 +1,31 @@
+
+{% extends 'doors/base_new.html' %}
+{% load static %}
+
+
+{% block content %}
+
+<div class="container-sm card-cont">
+<div class="cardc">
+
+        {% for object in obj %}
+        <div class="cardc-top">
+        <div class="cardc-name"> {{object.title}}</div>
+        <div class="cardc-color"> </div>
+        {% for value in object.pictures %}
+        <div class="cardc-image"><img src="{{value.small}}" class="image_index"></div>
+        {% endfor %}
+        <div class="cardc-price">{{object.price}}</div>
+
+        <form action="{% url 'cart:cart_add' object.id %}" method="post">
+            {% csrf_token %}
+            {{cart_form}}
+            <input type="submit" value="добавить" >
+        </form>
+             </div>
+        {% endfor %}
+
+</div>
+</div>
+
+{% endblock %}

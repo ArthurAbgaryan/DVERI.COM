@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Doors test</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet"  type="text/css" href="{% static 'index.css' %}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<script src="https://kit.fontawesome.com/1b15ba938f.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+<div class="navbar-bok">
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{% url 'doors:index' %}">Navbar</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" href="#"></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#"></a>
+                            </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="fa-regular fa-user"></i>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#">Войти</a></li>
+                                        <li><a class="dropdown-item" href="#">Регистрация</a></li>
+                                    </ul>
+                                </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link" data-bs-toggle="modal" data-bs-target="#model-cart" role="button"  href="{% url 'cart:cart_view' %}">
+                                    <i class="fa-solid fa-cart-shopping"></i>
+                                </a>
+                        <div class="modal fade" id="model-cart" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="modal-header  bg-secondary text-white">
+                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Корзина</h1>
+                                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        {% for cart_modul in cart %}
+                                            <table class="table">
+                                                <thead>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <th scope="row">{{cart_modul.product.id}}</th>
+                                                            {% for value in cart_modul.product.pictures %}
+                                                                <td><img src="{{value.small}}"></td>
+                                                            {% endfor %}
+                                                                <td>{{cart_modul.product.title}}</td>
+                                                                <td>{{cart_modul.product.quantity}}</td>
+                                                                <td>{{cart_modul.product.price}}</td>
+                                                    </tr>
+
+                                                </tbody>
+                                                </table>
+                                        {% endfor %}
+                                    </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                                                <a href="{% url 'cart:cart_view' %}"><button type="button" class="btn btn-primary" >Перейти в корзину</button></a>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+
+                            </li>
+                        <li class="nav-item">
+                            <a class="nav-link" role="button"   href="#"><i class="fa-solid fa-magnifying-glass"></i></a>
+                        </li>
+                        </ul>
+
+                    </div>
+        </div>
+    </nav>
+</div>
+    <div class="block-content">
+        <div class="navbar-vertical-2">
+            <nav class="navbar navbar-expand-lg bg-body-tertiary">
+                <div class="container-fluid">
+
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            {% for name_catalog in main_cat %}
+                                <li class="nav-item">
+                                    <a class="nav-link active" aria-current="page" href="{% url 'doors:index_1' name_catalog.id %}">{{name_catalog.title}}</a>
+                                        {% for m_i in midle_cat %}
+                                        {% if m_i.parent_id == name_catalog.id %}
+                                            <ul class="navbar-nav">
+                                                <li class="nav-item">
+                                                    <a class="nav-link active" aria-current="page" href="{% url 'doors:index_2' name_catalog.id m_i.id %}">{{m_i.title}}</a>
+                                                        <ul class="navbar-nav">
+                                                            {% for m_k in model_cat %}
+                                                                {% if m_k.parent_id == m_i.id  and m_i.parent_id == name_catalog.id %}
+                                                                    <li class="nav-item">
+                                                                        <a class="nav-link active" aria-current="page" href="{% url 'doors:index_3' name_catalog.id m_i.id m_k.id %}">{{m_k.title}}</a>
+                                                                    </li>
+                                                                {% endif %}
+                                                            {% endfor %}
+                                                        </ul>
+                                                </li>
+                                            </ul>
+                                        {% endif %}
+                                        {% endfor %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+{% block content %}
+
+{% endblock %}
+    </div>
+
+</body>
+</html>

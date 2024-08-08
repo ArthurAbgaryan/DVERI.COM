@@ -1,0 +1,90 @@
+html {
+    font-size: 16px;
+
+}
+
+body{
+
+    font-family: 'Roboto', sans-serif; /* шрифт который мы подключили отдельно */
+    font-size: 16px;
+    font-weight:400;
+    color:#000;
+    background-color:#fff;
+    min-width:320px; /*минимальная оптимальная ширина экрана */
+
+
+}
+
+/* Добавляем адаптивность для всех картинок, чтобы они адаптировались под тот блок где они помещены*/
+/* это делается дыумя параметрами */
+img {
+    max-width: 100%;
+    height:auto;
+}
+
+/* Добавляем отступы для всех секций  50px сверху отступ,а слева и справа 0*/
+/* у нас будет контентная часть  которая будет помешена в секции и для того что бы мы для каждой секции не задавали отступы */
+section {
+    padding: 50px 0; /* устан-ет внутр. отступы внутри эл-та*/
+}
+ /* Настройка ссылок */
+ a{
+    color:#111;
+ }
+/* при наведении */
+ a:hover {
+    color:#555;
+ }
+ /* Начало стили для навигац панели */
+ .bg-body-tertiary .navbar-nav .nav-link {
+    color:#111;
+    font-weight: 500;
+    text-transform: uppercase;
+ }
+
+ .top-menu li a::after { /*after псевдо эл-т позвол. добавить контент после выбронного эл-та*/
+    content:'';
+    display: block;
+    width:100%;
+    background-color:#111;
+    height:1px;
+    transition:all .3s; /*плавность*/
+    transform: scale(0); /* скрываем контант чтобы его не было видно */
+
+ }
+
+ /* При наведении transform меняет свое значение и повляется после наведения*/
+.top-menu li a:hover::after {
+    transform:scale(1);
+}
+
+.modal-body img {
+    width:50px;
+}
+ /*  Конец стили для навигац панели */
+
+/* Настройка боковой паели навигации */
+.navbar-vertical-2 .container-fluid,.navbar-vertical-2 .navbar-collapse,.navbar-vertical-2 .navbar-nav {
+    flex-direction:column;
+}
+.navbar-vertical-2 {
+    width:25%;
+}
+
+/* Настройка боковой паели навигации */
+.block-content {
+    display:flex;
+    flex-direction:row;
+}
+.block-content .cardc {
+    display:flex;
+    flex-wrap:wrap; /*переносит элем-ты на новую строку*/
+    margin:10px;
+}
+
+.block-content .cardc-top {
+    margin:10px;
+}
+.block-content .cardc-top img {
+    height:200px;
+}

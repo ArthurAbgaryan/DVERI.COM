@@ -1,0 +1,15 @@
+{% extends 'admin/base.html' %}
+
+{% block content %}
+
+<form action="." method="post" enctype="multipart/form-data">
+
+    {{form.as_p}}
+    {% csrf_token %}
+
+    <input value="Import json-file" type="submit">
+
+
+</form>
+
+{% endblock %}
