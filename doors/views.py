@@ -53,7 +53,8 @@ def index(request, category = None, category_next = None,category_next_2 = None)
                 obj = products.objects.filter(category_id__in = model_c_id)
             else:
                 obj = products.objects.filter(category_id = category_next)
-            # if category_next_2:
+            if category_next_2:
+                obj = products.objects.filter(category_id = category_next_2)
 
 
 

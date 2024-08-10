@@ -79,12 +79,27 @@ section {
 .block-content .cardc {
     display:flex;
     flex-wrap:wrap; /*переносит элем-ты на новую строку*/
+    justify-content:space-evenly;
     margin:10px;
 }
 
 .block-content .cardc-top {
-    margin:10px;
+    margin:25px;
 }
 .block-content .cardc-top img {
-    height:200px;
+    height:240px;
+    padding:3px;
+}
+
+.block-content .cardc-top .cardc-image {
+    display:flex;
+    flex-direction:row;
+}
+
+#middle-category{
+    padding-left:15px;
+}
+
+#model-category{
+    padding-left:15px;
 }

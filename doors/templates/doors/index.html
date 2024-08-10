@@ -12,9 +12,12 @@
         <div class="cardc-top">
         <div class="cardc-name"> {{object.title}}</div>
         <div class="cardc-color"> </div>
-        {% for value in object.pictures %}
-        <div class="cardc-image"><img src="{{value.small}}" class="image_index"></div>
+
+        <div class="cardc-image">
+            {% for value in object.pictures %}
+            <img src="{{ value.small }}" class="image_index">
         {% endfor %}
+            </div>
         <div class="cardc-price">{{object.price}}</div>
 
         <form action="{% url 'cart:cart_add' object.id %}" method="post">
