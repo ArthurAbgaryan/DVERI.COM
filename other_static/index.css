@@ -103,3 +103,34 @@ section {
 #model-category{
     padding-left:15px;
 }
+
+/* Описание свойтсва страницы детализации товара */
+
+.block-content .detail-block {
+    display:flex;
+    flex-direction: column;
+}
+.block-content .detail-img-option{
+    display:flex;
+
+}
+.block-content .detail-img-option .detail-img img {
+    height:500px;
+}
+.block-content .detail-option{
+    display:flex;
+    flex-direction:column;
+    }
+.block-content .title_color-vender_cod{
+    display:flex;
+    }
+.block-content .list-description{
+    display:flex;
+}
+.block-content .detail-option .list_size{
+    display:flex;
+}
+#list_colors_detail {
+    height:30px;
+}
+/* Конец описания свойств страницы деталицазии */

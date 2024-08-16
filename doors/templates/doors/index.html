@@ -10,7 +10,7 @@
 
         {% for object in obj %}
         <div class="cardc-top">
-        <div class="cardc-name"> {{object.title}}</div>
+            <div class="cardc-name"> <a href="{% url 'doors:detail_card' object.id  %}">{{object.title}}</a></div>
         <div class="cardc-color"> </div>
 
         <div class="cardc-image">

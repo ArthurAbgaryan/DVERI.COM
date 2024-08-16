@@ -1,0 +1,45 @@
+{% extends 'doors/base_new.html' %}
+{% load static %}
+
+{% block content %}
+<div class="detail-block">
+    <div class="detail-img-option">
+        <div class="detail-img">
+            {% for x in detail_obj.pictures %}
+                <img src="{{x.large}}">
+            {% endfor %}
+        </div>
+        <div class="detail-option">
+            <div class="title-obj">{{detail_obj.title}}</div>
+            <div class="title_color-vender_cod">
+                <div class="title_color">{{color_obj.title}}</div>
+                <div class="vender_cod">{{detail_obj.vendor_code}}</div>
+            </div>
+            <div class="label-color">Цвет</div>
+            <div class="list_color">
+                {% for y in colors %}
+                    <img id="list_colors_detail"  src="{{y.picture}}">
+                {% endfor %}
+            </div>
+            <div class="label-size">Размер полотна</div>
+            <div class="list_size">
+                {% for z in detail_obj.options %}
+                <div class="list-size-obj">
+                    {{z.title}}
+                </div>
+                {% endfor %}
+            </div>
+            <div class="label-price"></div>
+            <div class="price"></div>
+            <div class="button-buy"></div>
+        </div>
+    </div>
+    <div class="list-description">
+        <div class="description"></div>
+        <div class="complection"></div>
+        <div class="documents"></div>
+        <div class="where-by"></div>
+    </div>
+    <div class="main-description"></div>
+</div>
+{% endblock %}
