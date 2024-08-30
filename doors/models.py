@@ -127,7 +127,7 @@ class products(models.Model):
     discount = models.IntegerField(null=True,verbose_name='Розничная скидка')
     discount_dealer = models.IntegerField(null=True,verbose_name='Диллерская скидка')
     label = models.CharField(max_length=250,verbose_name='Лейбл',null=True)
-    vendor_code	=models.CharField(max_length=250,null=True, verbose_name='Артикул')
+    vendor_code	= models.CharField(max_length=250,null=True, verbose_name='Артикул')
     position = models.PositiveIntegerField(verbose_name='Позиция внутри родительского класса', null=True)
     pictures = models.JSONField(null=True,help_text='Картинки в трех размерах')
     options = models.JSONField(null=True, verbose_name='Опции',help_text='Содержит опции товара (размеры)')
