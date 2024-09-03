@@ -44,11 +44,50 @@
         </div>
     </div>
     <div class="list-description">
-        <div class="description"></div>
-        <div class="complection"></div>
+        <div class="description"><a href="{% url 'doors:l_description' detail_obj.id 1 %}" class="url_description">Описание</a></div>
+        <div class="complection"><a href="{% url 'doors:l_description' detail_obj.id  2 %}" class="url_complectetion">Комплектация</a></div>
+            {% if detail_obj.accessory_properties %}
+                <div class="metal-acsesory"><a href="{% url 'doors:l_description' detail_obj.id 3 %}" class="metal-acsesory">Фурнитура</a></div>
+            {% endif %}
         <div class="documents"></div>
-        <div class="where-by"></div>
+        <div class="where-by">Где купить?</div>
     </div>
-    <div class="main-description"></div>
+    {% if description_number == 1 %}
+        {% for key, values in proper_dict.items %}
+            <div class="main-description">
+                <div class="title-description">{{key}}:</div>
+                <div class="body-description">{{values}}</div>
+            </div>
+        {% endfor %}
+
+    {% endif %}
+
+    {% if description_number == 3 %}
+        {% for keys, value in metal_acsessory.items %}
+            <div class="metal_acsessory">
+                <div class="title-metal_acsessory">{{keys}}:</div>
+                <div class="body-metal_acsessory">{{value}}</div>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {% if description_number == 2 %}
+    {% for data in complectation %}
+        <div class="complectation-table">
+            <table class="complectation">
+                <tbody class="body-complectation">
+                    <tr>
+                        <td>{{data.title}}</td>
+                        <td>{{data.vendor_code}}</td>
+                            {% for picture in data.pictures %}
+                                <td>{{picture.small}}</td>
+                            {% endfor %}
+                        <td>{{data.price}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    {% endfor %}
+    {% endif %}
 </div>
 {% endblock %}

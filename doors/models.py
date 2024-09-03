@@ -118,7 +118,7 @@ class products(models.Model):
     title=models.CharField(max_length=250,null=True,verbose_name='Название')
     url = models.URLField(null=True, help_text='Ссылка на сайте')
     category_id = models.PositiveIntegerField(null=True,help_text='Идентификатор категории')
-    accessory_group_id	= models.PositiveIntegerField(null=True,help_text='Идентификатор группы аксессуаров')
+    accessory_group_id = models.PositiveIntegerField(null=True,help_text='Идентификатор группы аксессуаров')
     color_id = models.PositiveIntegerField(null=True,help_text='Идентификатор цвета')
     glass_id = models.PositiveIntegerField(null=True,help_text='Идентификатор стекла')
     trademark_id = models.PositiveIntegerField(null=True, help_text='Идентификатор торговой марки')

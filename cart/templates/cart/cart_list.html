@@ -16,14 +16,14 @@
   <tbody>
   {% for cart in cart_cart %}
     <tr>
-      <th scope="row">
+      <td scope="row">
         {% for value in  cart.product.pictures %}
         <img src="{{value.small}}">
         {% endfor %}
-      </th>
+      </td>
       <td>{{cart.product.title}}</td>
-      <td>{{cart.product.price}}</td>
       <td>{{cart.product.quantity}}</td>
+      <td>{{cart.product.price}}</td>
     </tr>
 {% endfor %}
   </tbody>
