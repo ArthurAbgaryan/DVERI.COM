@@ -67,6 +67,9 @@ class accessories(models.Model):
     label = models.CharField(max_length=250, null=True,verbose_name='Лейбл (статус)')
     vendor_code = models.CharField(max_length=250,null=True, verbose_name='Артикул')
     is_telescopic= models.BooleanField(null=True)
+
+    def get_name(self):
+        return self.__class__.__name__
     class Meta:
         verbose_name = 'Комплектующие'
         verbose_name_plural = 'Комплектующие'
@@ -135,3 +138,6 @@ class products(models.Model):
     accessory_properties = models.JSONField(null=True,help_text='Содержит фурнитуру входных дверей')
     analogs = models.JSONField(null=True,verbose_name='Содержит аналоги товаров (похожий товар от другого производителя или другая модификация)')
     related_products = models.JSONField(null=True,help_text='Содержит товары из блока "C этим товаров также покупают"')
+
+    def get_name(self):
+        return self.__class__.__name__

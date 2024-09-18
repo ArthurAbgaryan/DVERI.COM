@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block content %}
-<div class="detail-block">
+ <div class="detail-block">
     <div class="detail-img-option">
         <div class="detail-img">
             {% for x in detail_obj.pictures %}
@@ -45,8 +45,10 @@
     </div>
     <div class="list-description">
         <div class="description"><a href="{% url 'doors:l_description' detail_obj.id 1 %}" class="url_description">Описание</a></div>
+        {% if complectation %}
         <div class="complection"><a href="{% url 'doors:l_description' detail_obj.id  2 %}" class="url_complectetion">Комплектация</a></div>
-            {% if detail_obj.accessory_properties %}
+        {% endif %}
+        {% if detail_obj.accessory_properties %}
                 <div class="metal-acsesory"><a href="{% url 'doors:l_description' detail_obj.id 3 %}" class="metal-acsesory">Фурнитура</a></div>
             {% endif %}
         <div class="documents"></div>
@@ -83,6 +85,12 @@
                                 <td>{{picture.small}}</td>
                             {% endfor %}
                         <td>{{data.price}}</td>
+                        <td>
+                            <form action="{% url 'cart:cart_add' data.id data.get_name %}" method="post">
+                                {% csrf_token %}
+                                {{cart_form}}
+                                <input type="submit" value="добавить" >
+                            </form></td>
                     </tr>
                 </tbody>
             </table>

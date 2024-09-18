@@ -144,5 +144,10 @@ section {
   color: #bfbfbf;
 }
 
+#cart_list img {
+    height:100px;
+    weight:auto;
+
+}
 
 }

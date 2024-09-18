@@ -1,6 +1,8 @@
 from django.shortcuts import render,get_object_or_404
 from .models import products,categories,colors,properties,property_values,accessories
 from cart.forms import CartForm
+from .forms import SearchForm
+from django.contrib.postgres.search import SearchVector
 
 
 
@@ -8,10 +10,16 @@ def index(request,category = None,
           category_next = None,
           category_next_2 = None,):
     exclude_category_model_mezhkomnt = [332, 395, 193, 12, 394, 246]
+    #описание поиска
+    form = SearchForm()
+    results = []
+    query = None
+
+    #конец описания поиска
     cart_form = CartForm()
     middle_c = []
     model_1 = []
-    obj = products.objects.all()[:100]
+    obj = products.objects.all()[:20]
     if category:
         middle_c_id = []
         model_c_id = []
@@ -51,7 +59,7 @@ def detail_card (request, pk, des=1, detail_color_id=None, detail_size = None):
     category_1 =[]
     proper_dict = {}
     metal_acsessory = {}
-    complectation = {}
+    cart_form = CartForm()
     detail_obj = get_object_or_404(products,id = pk)
     detail_obj_category = categories.objects.get(id = detail_obj.category_id)
     if detail_obj_category.parent_id:
@@ -86,8 +94,8 @@ def detail_card (request, pk, des=1, detail_color_id=None, detail_size = None):
             properti_1 = properties.objects.get(id = proper['id']).title
             properti_1_values = property_values.objects.get(id = proper['value_id']).title
             proper_dict[properti_1] = properti_1_values
-    if des == 2:
-        complectation = accessories.objects.filter(accessory_group_id = detail_obj.accessory_group_id)
+
+    complectation = accessories.objects.filter(accessory_group_id = detail_obj.accessory_group_id)
 
     if des == 3:
         if detail_obj.accessory_properties:
@@ -95,16 +103,35 @@ def detail_card (request, pk, des=1, detail_color_id=None, detail_size = None):
                 m_a_id = properties.objects.get(id = m_a['id']).title
                 m_a_values = property_values.objects.get(id = m_a['value_id']).title
                 metal_acsessory[m_a_id] = m_a_values
+    context = {'detail_obj':detail_obj,
+               'metal_acsessory':metal_acsessory,
+               'complectation':complectation,
+               'description_number':description_1,
+               'proper_dict':proper_dict,
+               'colors':detail_obj_colors,
+               'color_obj':color_obj,
+               'midle_cat': category_2,
+               'model_cat': category_1,
+               'vendor_code':vendor_code,
+               'cart_form':cart_form}
 
-    return render(request, 'doors/detail_card.html',{'detail_obj':detail_obj,
-                                                     'metal_acsessory':metal_acsessory,
-                                                     'complectation':complectation,
-                                                     'description_number':description_1,
-                                                     'proper_dict':proper_dict,
-                                                     'colors':detail_obj_colors,
-                                                     'color_obj':color_obj,
-                                                     'midle_cat': category_2,
-                                                     'model_cat': category_1,
-                                                     'vendor_code':vendor_code,
-                                                     })
+    return render(request, 'doors/detail_card.html',context)
 
+def search(request):
+    form_search = SearchForm()
+    cart_form = CartForm()
+    query = None
+    results = []
+    if 'query' in request.GET:
+        form_search = SearchForm(request.GET)
+    if form_search.is_valid():
+        query = form_search.cleaned_data['query']
+        results = products.objects.annotate(search = SearchVector('title','vendor_code')).filter(search = query)
+    return render(request, 'doors/search_final.html',{'form_search':form_search,
+                                                      'query': query,
+                                                      'results':results,
+                                                      'cart_form':cart_form})
+
+        # query = request.GET['query'].strip()
+        # if query:
+        #     form = SearchForm({'query':query})

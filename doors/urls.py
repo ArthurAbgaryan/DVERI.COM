@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import index,detail_card
+from .views import index,detail_card,search
 app_name = 'doors'
 urlpatterns = [
     path('index/',index, name = 'index'),
@@ -10,6 +10,7 @@ urlpatterns = [
     path('index/detail/<int:pk>/',detail_card, name = 'detail_card'),
     path('index/detail/<int:pk>/<int:detail_color_id>/',detail_card, name = 'detail_card_with_color_id'),
     path('index/detail/<int:pk>/<str:detail_size>/',detail_card, name = 'detail_card_with_size'),
+    path('search/',search,name = 'search'),
 
 
 ]

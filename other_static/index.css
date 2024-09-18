@@ -169,7 +169,6 @@ section {
 }
 
 
-
 .block-content .detail-block{
     padding-left:50px;
     padding-top:70px;
@@ -178,4 +177,14 @@ section {
 #list_colors_detail {
     height:30px;
 }
+
 /* Конец описания свойств страницы деталицазии */
+
+/* Cтилизация корзины */
+#cart_list img {
+    height:80px;
+    weight:auto;
+
+}
+
+/* Конец стилизации корзины */

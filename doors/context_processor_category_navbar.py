@@ -1,4 +1,5 @@
 from .models import categories,products
+from .forms import SearchForm
 
 def category(request):
     all_products = products.objects.all()
@@ -24,3 +25,6 @@ def category(request):
             main_categoies_list.append(x.id)
     main_category = categories.objects.filter(id__in =main_categoies_list ).exclude(id__in= [37,168])
     return {'main_cat':main_category}
+def context_form_search(request):
+    form_search = SearchForm()
+    return {'form_search':form_search}

@@ -51,24 +51,37 @@
                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body">
-                                        {% for cart_modul in cart %}
-                                            <table class="table">
+
+                                            <table class="table" >
                                                 <thead>
+                                                <tr>
+                                                          <th scope="col">article</th>
+                                                          <th scope="col">Image</th>
+                                                          <th scope="col">model</th>
+                                                          <th scope="col">quantity</th>
+                                                          <th scope="col">price</th>
+                                                </tr>
                                                 </thead>
                                                 <tbody>
+                                                {% for cart_modul in cart %}
                                                     <tr>
+
                                                         <th scope="row">{{cart_modul.product.id}}</th>
-                                                            {% for value in cart_modul.product.pictures %}
-                                                                <td><img src="{{value.small}}"></td>
-                                                            {% endfor %}
+                                                                <td >{% for value in cart_modul.product.pictures %}<img src="{{value.small}}">{% endfor %}</td>
                                                                 <td>{{cart_modul.product.title}}</td>
-                                                                <td>{{cart_modul.product.quantity}}</td>
+                                                                <td>{{cart_modul.quantity}}</td>
                                                                 <td>{{cart_modul.product.price}}</td>
                                                     </tr>
+                                                {% endfor %}
 
                                                 </tbody>
+                                                <tfoot>
+                                                <tr>
+                                                    <td>Итог:</td>
+                                                <td>{{cart.get_total_price}}</td>
+                                                </tr>
+                                                </tfoot>
                                                 </table>
-                                        {% endfor %}
                                     </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
@@ -79,8 +92,17 @@
                         </div>
 
                             </li>
-                        <li class="nav-item">
-                            <a class="nav-link" role="button"   href="#"><i class="fa-solid fa-magnifying-glass"></i></a>
+                        <li class="nav-item dropdown">
+
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa-solid fa-magnifying-glass"></i></a>
+                                      <ul class="dropdown-menu">
+
+                                        <form class="dropdown-item" method="get" action="{% url 'doors:search' %}" >
+                                            {{form_search}}
+                                            <input type="submit" value="поиск">
+                                        </form>
+
+                                    </ul>
                         </li>
                         </ul>
 
