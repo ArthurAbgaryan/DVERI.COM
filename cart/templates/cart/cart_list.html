@@ -35,7 +35,7 @@
   <th>Итог: {{cart.get_total_price}} р.</th>
 </tr>
 <tr>
-  <th><a href="#" class="button-pay">Перейти к оплате</a></th>
+  <th><a href="{% url 'order:order' %}" class="button-pay">Перейти к оформлению</a></th>
 </tr>
 <tr>
   <th><a href="{% url 'cart:cart_clear' %}" class="button-pay">Очистить корзину</a></th>

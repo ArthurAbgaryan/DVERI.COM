@@ -10,21 +10,18 @@ def index(request,category = None,
           category_next = None,
           category_next_2 = None,):
     exclude_category_model_mezhkomnt = [332, 395, 193, 12, 394, 246]
-    #описание поиска
-    form = SearchForm()
-    results = []
-    query = None
-
-    #конец описания поиска
     cart_form = CartForm()
     middle_c = []
     model_1 = []
     obj = products.objects.all()[:20]
+    name_category_top = []
     if category:
+        name_category_top = ['Главная']
         middle_c_id = []
         model_c_id = []
         middle_c = categories.objects.filter(parent_id = category).exclude(id__in= [270,590,238])
         if middle_c:
+
             for m_c_id in middle_c:
                 middle_c_id.append(m_c_id.id)
             model_category_list = categories.objects.filter(parent_id__in = middle_c_id).exclude(id__in = exclude_category_model_mezhkomnt)
@@ -35,6 +32,8 @@ def index(request,category = None,
             else:
                 obj = products.objects.filter(category_id__in = middle_c_id)
             if category_next:
+                category_next_object = get_object_or_404(categories, id = category)
+                name_category_top.append('/' + category_next_object.title + '/')
                 model_c_id = []
                 model_1 = categories.objects.filter(parent_id = category_next).exclude(id__in = exclude_category_model_mezhkomnt)
                 if model_1:
@@ -44,18 +43,22 @@ def index(request,category = None,
                 else:
                     obj = products.objects.filter(category_id = category_next)
                 if category_next_2:
+                    category_next_2_object = get_object_or_404(categories, id = category_next)
+                    name_category_top.append(category_next_2_object.title + '/')
                     obj = products.objects.filter(category_id = category_next_2)
         else:
             obj = products.objects.filter(category_id = category)
     return render(request,'doors/index.html',{'obj':obj,
                                               'cart_form':cart_form,
                                               'midle_cat':middle_c,
-                                              'model_cat':model_1,})
+                                              'model_cat':model_1,
+                                              'name_category_top':name_category_top})
 
 def detail_card (request, pk, des=1, detail_color_id=None, detail_size = None):
     description_1 = des
     list_colors_id_this_obj = []
     category_2=[]
+    name_category_top = ['Главная']
     category_1 =[]
     proper_dict = {}
     metal_acsessory = {}
@@ -67,9 +70,16 @@ def detail_card (request, pk, des=1, detail_color_id=None, detail_size = None):
         category_2_parent = categories.objects.get(id = detail_obj_category.parent_id)
 
         if category_2_parent.parent_id:
+            category_3_parent = categories.objects.get(id = category_2_parent.parent_id)
+            name_category_top.append('/' + category_3_parent.title + '/' + category_2_parent.title + '/' + detail_obj_category.title)
+        else:
+            name_category_top.append('/' + category_2_parent.title + '/' + detail_obj_category.title)
+        if category_2_parent.parent_id:
             category_2 = categories.objects.filter(parent_id = category_2_parent.parent_id)
         else:
             category_2 = category_1
+    else:
+        name_category_top.append('/' + detail_obj_category.title)
     if detail_color_id:
          detail_obj = get_object_or_404(products,title = detail_obj.title,
                                         category_id = detail_obj.category_id,
@@ -82,7 +92,10 @@ def detail_card (request, pk, des=1, detail_color_id=None, detail_size = None):
     for x in list_obj_with_name:
         list_colors_id_this_obj.append(x.color_id)
     detail_obj_colors = colors.objects.filter(id__in = list_colors_id_this_obj)
-    color_obj = colors.objects.get(id = detail_obj.color_id)
+    if detail_obj.color_id:
+        color_obj = colors.objects.get(id = detail_obj.color_id)
+    else:
+        color_obj =[]
     vendor_code = detail_obj.vendor_code
     if detail_size:
         for x in detail_obj.options:
@@ -113,7 +126,8 @@ def detail_card (request, pk, des=1, detail_color_id=None, detail_size = None):
                'midle_cat': category_2,
                'model_cat': category_1,
                'vendor_code':vendor_code,
-               'cart_form':cart_form}
+               'cart_form':cart_form,
+               'name_category_top':name_category_top}
 
     return render(request, 'doors/detail_card.html',context)
 
@@ -132,6 +146,3 @@ def search(request):
                                                       'results':results,
                                                       'cart_form':cart_form})
 
-        # query = request.GET['query'].strip()
-        # if query:
-        #     form = SearchForm({'query':query})

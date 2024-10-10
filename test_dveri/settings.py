@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'doors',
     'django.contrib.postgres',
     'cart',
+    'order',
 ]
 
 MIDDLEWARE = [

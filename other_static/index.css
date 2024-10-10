@@ -13,6 +13,7 @@ body{
     color:#000;
     background-color:#fff;
     min-width:320px; /*минимальная оптимальная ширина экрана */
+    overflow-x: hidden;
 
 
 }
@@ -38,6 +39,30 @@ section {
     color:#555;
  }
  /* Начало стили для навигац панели */
+
+
+/* настройка горизонтальной панели */
+ .navbar-bok .navbar .container-fluid{
+    display:flex;
+    justify-content:space-between;
+    /*margin-left:80%;*/
+
+ }
+
+.navbar-nav .dropdown-menu{
+    left:auto;
+    right:0;
+}
+
+
+/*
+ .navbar-bok .navbar-expand-lg .navbar-collapse .navbar-nav{
+    display:flex;
+    justify-content:flex-end;
+    margin-left:80%;
+
+ }
+ */
  .bg-body-tertiary .navbar-nav .nav-link {
     color:#111;
     font-weight: 500;
@@ -79,12 +104,24 @@ section {
     flex-direction:row;
 
 }
+
 .block-content .cardc {
+    width:75%;
     display:flex;
+    flex-direction:column;
+   /* flex-wrap:wrap; /*переносит элем-ты на новую строку*/
+    /*justify-content:space-evenly;*/
+    margin:10px;
+}
+.block-content .cardc .card-all {
+    /*width:75%;*/
+    display:flex;
+    flex-direction:row;
     flex-wrap:wrap; /*переносит элем-ты на новую строку*/
     justify-content:space-evenly;
     margin:10px;
 }
+
 
 .block-content .cardc-top {
     margin:25px;
@@ -148,6 +185,12 @@ section {
     display:flex;
 }
 
+.block-content .top-name-cetegory{
+    display:flex;
+    justify-content:space-around;
+    margin-top:40px;
+}
+
 .block-content .detail-option .title-obj{
     font-weight:bold;
     font-size: 20px;
@@ -160,7 +203,7 @@ section {
     opacity: .6;
 }
 
-.block-content  .vander-cod-label, .block-content .label-color , .block-content .label-size {
+.block-content  .vander-cod-label, .block-content .label-color , .block-content .label-size , .block-content .top-name-cetegory {
     opacity: .6;
 }
 
@@ -171,7 +214,7 @@ section {
 
 .block-content .detail-block{
     padding-left:50px;
-    padding-top:70px;
+    padding-top:50px;
     padding-right:50px;
 }
 #list_colors_detail {

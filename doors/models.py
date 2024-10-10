@@ -68,6 +68,8 @@ class accessories(models.Model):
     vendor_code = models.CharField(max_length=250,null=True, verbose_name='Артикул')
     is_telescopic= models.BooleanField(null=True)
 
+    def __str__(self):
+        return self.title
     def get_name(self):
         return self.__class__.__name__
     class Meta:
@@ -141,3 +143,5 @@ class products(models.Model):
 
     def get_name(self):
         return self.__class__.__name__
+    def __str__(self):
+        return self.title

@@ -1,0 +1,29 @@
+{% extends 'doors/base_new.html' %}
+{% load static %}
+
+{% block content %}
+<div class="order-all">
+    <div class="order-title">
+        Ваш заказ
+    </div>
+    <div class="order-cart">
+            <ul class="list-cart">
+                 {% for item in cart %}
+                <li>{{item.quantity}} * {{item.product.title}} </li>
+                {% endfor %}
+            </ul>
+
+    </div>
+    <div class="order-total-cost">
+        {{cart.get_total_price}}
+    </div>
+    <div class="form-order">
+        <form action="." class="form" method="post">
+            {% csrf_token %}
+            {{form.as_p}}
+            <input type="submit" value="Оформить">
+        </form>
+    </div>
+</div>
+
+{% endblock %}

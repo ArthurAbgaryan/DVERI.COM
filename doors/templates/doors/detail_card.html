@@ -2,6 +2,12 @@
 {% load static %}
 
 {% block content %}
+     <div class="top-name-cetegory">
+
+     {% if name_category_top %}
+        {% for x in name_category_top%} {{x}} {% endfor %}
+        {% endif %}
+</div>
  <div class="detail-block">
     <div class="detail-img-option">
         <div class="detail-img">
