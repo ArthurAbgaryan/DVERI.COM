@@ -58,7 +58,7 @@
                 <div class="metal-acsesory"><a href="{% url 'doors:l_description' detail_obj.id 3 %}" class="metal-acsesory">Фурнитура</a></div>
             {% endif %}
         <div class="documents"></div>
-        <div class="where-by">Где купить?</div>
+        <div class="where-by"><a href="{% url 'doors:contacts' %}">Где купить?</a></div>
     </div>
     {% if description_number == 1 %}
         {% for key, values in proper_dict.items %}

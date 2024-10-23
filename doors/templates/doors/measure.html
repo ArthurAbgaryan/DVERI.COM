@@ -1,0 +1,20 @@
+{% extends 'doors/base_new.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="all-form-measure">
+    <div class="title-form-measure">
+        <h1>Заполните форму </h1>
+        <p>менеджер свяжется вами для уточнения информации</p>
+    </div>
+    <div class="form-measure">
+        <form method="post" action=".">
+            {% csrf_token %}
+            {{form.as_p}}
+            <input type=submit value="Отправить" >
+        </form>
+    </div>
+</div>
+
+{% endblock %}

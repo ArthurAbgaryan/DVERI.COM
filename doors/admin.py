@@ -1,11 +1,16 @@
 from django.contrib import admin
 from .forms import categories_forms
-from .models import categories,colors,color_groups,glasses,accessory_groups,accessories,properties,property_values,attributes,attributeValues,trademarks,products
+from .models import categories,measure,colors,color_groups,glasses,accessory_groups,accessories,properties,property_values,attributes,attributeValues,trademarks,products
 from django.urls import path
 import json
 from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.shortcuts import reverse,render
+
+@admin.register(measure)
+class measureAdmin(admin.ModelAdmin):
+    list_display = ['name','number','e_mail','address']
+
 @admin.register(glasses)
 class glasses_admin(admin.ModelAdmin):
     list_display = ['title']

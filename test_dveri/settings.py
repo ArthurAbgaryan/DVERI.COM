@@ -150,3 +150,10 @@ STATICFILES_FINDERS = [
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+EMAIL_HOST = 'smtp.mail.ru'
+EMAIL_PORT = 2525
+EMAIL_HOST_USER = "abgaryanarthur@mail.ru"
+EMAIL_HOST_PASSWORD = "AVCYDLzuPMLjYjjac1BS" #временный пароль который генерируется в почте
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False

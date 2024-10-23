@@ -145,3 +145,17 @@ class products(models.Model):
         return self.__class__.__name__
     def __str__(self):
         return self.title
+
+
+
+class measure(models.Model):
+    name = models.CharField(max_length = 100, verbose_name = 'Имя')
+    number = models.CharField(max_length=150, verbose_name='Номер телефона')
+    e_mail = models.EmailField(null=True, verbose_name='e-mail')
+    address = models.CharField(max_length=150,verbose_name='Адрес')
+
+    def __str__(self):
+        return self.name
+    class Meta:
+        verbose_name = 'Замер'
+        verbose_name_plural = 'Замеры'

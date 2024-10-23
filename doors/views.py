@@ -1,9 +1,10 @@
-from django.shortcuts import render,get_object_or_404
+from django.shortcuts import render,get_object_or_404,redirect
 from .models import products,categories,colors,properties,property_values,accessories
 from cart.forms import CartForm
-from .forms import SearchForm
+from .forms import SearchForm, measureForm
 from django.contrib.postgres.search import SearchVector
-
+from django.core.mail import send_mail
+from django.conf import settings
 
 
 def index(request,category = None,
@@ -146,3 +147,19 @@ def search(request):
                                                       'results':results,
                                                       'cart_form':cart_form})
 
+def contacts(request):
+    return render(request, 'doors/contacts.html')
+
+def measure(request):
+    if request.method == 'POST':
+        form = measureForm(request.POST)
+        form.save()
+        send_mail("Замер",
+                  "Вам отправил заявку на замер",
+                  settings.EMAIL_HOST_USER,
+                  ["abgaryanarthurelina@gmail.com"],
+                  fail_silently=False,)
+        return redirect ('doors:index')
+    else:
+        form = measureForm()
+    return render(request, 'doors/measure.html', {'form':form})

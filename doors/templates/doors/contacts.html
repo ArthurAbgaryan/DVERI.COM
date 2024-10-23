@@ -1,0 +1,18 @@
+{%  extends 'doors/base_new.html'%}
+{% load static %}
+
+{% block content %}
+<div class="all-contacts-map">
+    <div class="title-map">Контакты</div>
+    <div class="map-description">
+        <div class="description-bok">
+            <p><a href="tel:+79773939173">Телефон: +7(977)-393-91-73</a></p><br>
+            <p>Адрес: г.Ликино-Дулево, 1-мая,2, магазин "Молоток"</p>
+        </div>
+        <div class="map-yandex">
+            <script type="text/javascript" charset="utf-8" async src="https://api-maps.yandex.ru/services/constructor/1.0/js/?um=constructor%3A2c2ab2868816875eba736eb9e5624328d319f3c6a2c1d3cf94a45531d86fdcef&amp;width=500&amp;height=400&amp;lang=ru_RU&amp;scroll=true"></script>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
