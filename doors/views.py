@@ -1,7 +1,7 @@
 from django.shortcuts import render,get_object_or_404,redirect
 from .models import products,categories,colors,properties,property_values,accessories
 from cart.forms import CartForm
-from .forms import SearchForm, measureForm
+from .forms import SearchForm, measureForm,filter_metal
 from django.contrib.postgres.search import SearchVector
 from django.core.mail import send_mail
 from django.conf import settings
@@ -10,6 +10,13 @@ from django.conf import settings
 def index(request,category = None,
           category_next = None,
           category_next_2 = None,):
+
+    query1 = None
+    result_properti = []
+    result_list = []
+    id_product = []
+    form_filter = filter_metal()
+
     exclude_category_model_mezhkomnt = [332, 395, 193, 12, 394, 246]
     cart_form = CartForm()
     middle_c = []
@@ -49,11 +56,32 @@ def index(request,category = None,
                     obj = products.objects.filter(category_id = category_next_2)
         else:
             obj = products.objects.filter(category_id = category)
+
+#Фильтр начало
+
+
+
+    # if 'query' in request.GET:
+    #     form_filter = filter_metal(request.GET)
+    # if form_filter.is_valid():
+    #     query1 = form_filter.cleaned_data['query']
+    #     for x in query1.values():
+    #         result_list.append(x)
+    #     result_properti = property_values.objects.filter(title__in=result_list)
+    #     for y in result_properti:
+    #         id_product.append(y.product_id)
+    #     obj = products.objects.filter(id__in=id_product)
+
+#Фильтр конец
+
     return render(request,'doors/index.html',{'obj':obj,
                                               'cart_form':cart_form,
                                               'midle_cat':middle_c,
                                               'model_cat':model_1,
-                                              'name_category_top':name_category_top})
+                                              'name_category_top':name_category_top,
+                                              'query1':query1,
+                                              'form_filter':form_filter,
+                                              'result_list':result_list})
 
 def detail_card (request, pk, des=1, detail_color_id=None, detail_size = None):
     description_1 = des
@@ -163,3 +191,76 @@ def measure(request):
     else:
         form = measureForm()
     return render(request, 'doors/measure.html', {'form':form})
+
+
+"""
+def filter(request):
+    form_filter = filter_metal()
+    query = None
+    result_properti = []
+    result_list = []
+    id_product = []
+    if 'query' in request.GET:
+        form_filter = filter_metal(request.GET)
+    if form_filter.is_valid():
+        query = form_filter.cleaned_data['query']
+        for x in query.values():
+            result_list.append(x)
+        result_properti = property_values.object.filter(in__title = result_list )
+        for y in result_properti:
+            id_product.append(y.product_id)
+        products_finish = products.objects.filter(in__id = id_product)
+"""
+
+"""     for proper in detail_obj.properties:
+            properti_1 = properties.objects.get(id = proper['id']).title
+            properti_1_values = property_values.objects.get(id = proper['value_id']).title
+            proper_dict[properti_1] = properti_1_values
+"""
+
+def test_filter(request):
+    form_filter = filter_metal()
+    obl_object_finish = None
+    query = None
+    result_list =[]
+    result_properti =[]
+    obj= []
+    id_product =[]
+    order = None
+    category_id_metal = [491,541,535,537,308]
+    if request.method == "GET":
+        form_filter = filter_metal(request.GET)
+    if form_filter.is_valid():
+        query = form_filter.cleaned_data
+        for x in query.values():
+            result_list.append(x)
+            if x == 'Сначала дешевле':
+                order = 0
+            if x == 'Сначала дороже':
+                order = 1
+        result_properti = property_values.objects.filter(title__in=result_list)
+        obj_all = products.objects.all()
+        result_properti_count = result_properti.count()
+        for z in obj_all:
+            for y in result_properti:
+                for z_1 in z.properties:
+                    if z_1['value_id'] == y.id:
+                        result_properti_count -=1
+            if result_properti_count ==0:
+                obj.append(z.id)
+            result_properti_count = result_properti.count()
+        if order == 1:
+            obl_object_finish = products.objects.filter(id__in=obj, category_id__in=category_id_metal).order_by('-price')
+        elif order == 0:
+            obl_object_finish = products.objects.filter(id__in=obj, category_id__in=category_id_metal).order_by('price')
+        else:
+            obl_object_finish = products.objects.filter(id__in=obj, category_id__in = category_id_metal)
+
+    context = {'query':query,
+               'form_filter':form_filter,
+               'id_product':id_product,
+               'obj':obl_object_finish,
+               'result_properti':result_properti,
+               'result_list':result_list,
+               }
+    return render(request, 'doors/test_filter.html',context)
