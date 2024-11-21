@@ -9,7 +9,7 @@ from django.conf import settings
 
 def index(request,category = None,
           category_next = None,
-          category_next_2 = None,):
+          category_next_2 = None):
 
     query1 = None
     result_properti = []
@@ -60,17 +60,6 @@ def index(request,category = None,
 #Фильтр начало
 
 
-
-    # if 'query' in request.GET:
-    #     form_filter = filter_metal(request.GET)
-    # if form_filter.is_valid():
-    #     query1 = form_filter.cleaned_data['query']
-    #     for x in query1.values():
-    #         result_list.append(x)
-    #     result_properti = property_values.objects.filter(title__in=result_list)
-    #     for y in result_properti:
-    #         id_product.append(y.product_id)
-    #     obj = products.objects.filter(id__in=id_product)
 
 #Фильтр конец
 
@@ -192,32 +181,6 @@ def measure(request):
         form = measureForm()
     return render(request, 'doors/measure.html', {'form':form})
 
-
-"""
-def filter(request):
-    form_filter = filter_metal()
-    query = None
-    result_properti = []
-    result_list = []
-    id_product = []
-    if 'query' in request.GET:
-        form_filter = filter_metal(request.GET)
-    if form_filter.is_valid():
-        query = form_filter.cleaned_data['query']
-        for x in query.values():
-            result_list.append(x)
-        result_properti = property_values.object.filter(in__title = result_list )
-        for y in result_properti:
-            id_product.append(y.product_id)
-        products_finish = products.objects.filter(in__id = id_product)
-"""
-
-"""     for proper in detail_obj.properties:
-            properti_1 = properties.objects.get(id = proper['id']).title
-            properti_1_values = property_values.objects.get(id = proper['value_id']).title
-            proper_dict[properti_1] = properti_1_values
-"""
-
 def test_filter(request):
     form_filter = filter_metal()
     obl_object_finish = None
@@ -257,10 +220,10 @@ def test_filter(request):
             obl_object_finish = products.objects.filter(id__in=obj, category_id__in = category_id_metal)
 
     context = {'query':query,
-               'form_filter':form_filter,
-               'id_product':id_product,
-               'obj':obl_object_finish,
-               'result_properti':result_properti,
-               'result_list':result_list,
-               }
+                'form_filter':form_filter,
+                'id_product':id_product,
+                'obj':obl_object_finish,
+                'result_properti':result_properti,
+                'result_list':result_list,
+                }
     return render(request, 'doors/test_filter.html',context)

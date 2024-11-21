@@ -1,9 +1,76 @@
 {% extends 'doors/base_new.html' %}
 {% block content %}
 
-<form action="." method="get">
-    {{form_filter}}
-    <input type="submit" value="отправить">
+<form class="row g-3" action="." method="get">
+
+<div class="col-md-3">
+<select class="form-select" id="validationCustom04" name="type">
+      <option value="None">Тип</option>
+        {% for x in form_filter.type %}
+        {{x}}
+        {% endfor %}
+    </select>
+</div>
+<div class="col-md-3">
+<select class="form-select" id="validationCustom04" name="lock">
+      <option value="None">Замки</option>
+        {% for x in form_filter.lock %}
+    {{x}}
+   {% endfor %}
+    </select>  </div>
+
+  <div class="col-md-3">
+<select class="form-select" id="validationCustom04" name="color_inside">
+      <option value="None">Цвет изнутри</option>
+        {% for x in form_filter.color_inside %}
+        {{x}}
+   {% endfor %}
+    </select>  </div>
+
+    <div class="col-md-3">
+<select class="form-select" id="validationCustom04"  name="style">
+      <option value="None">Стиль</option>
+        {% for x in form_filter.style %}
+      {{x}}
+   {% endfor %}
+    </select>  </div>
+<div class="col-md-3">
+    <select class="form-select" id="validationCustom04" name="features">
+      <option value="None">Особенности</option>
+        {% for x in form_filter.features %}
+      {{x}}
+   {% endfor %}
+    </select>
+  </div>
+  <div class="col-md-3">
+            <select class="form-select" id="validationCustom04" name="color_outside">
+      <option value="None">Цвет снаружи</option>
+        {% for x in form_filter.color_outside %}
+      {{x}}
+   {% endfor %}
+    </select>
+
+  </div>
+  <div class="col-md-3">
+
+    <select class="form-select" id="validationCustom04" name="price_scale" >
+
+      <option value="None">По умолчанию</option>
+         {% for x in form_filter.price_scale %}
+     {{x}}
+   {% endfor %}
+    </select>
+    <div class="invalid-feedback">
+      Please select a valid state.
+    </div>
+  </div>
+  <div class="col-12">
+
+  </div>
+  <div class="col-12">
+      <input  type="submit" value="отправить">
+<!--    <button class="btn btn-primary" type="submit">Фильтровать</button>-->
+  </div>
 </form>
 <div class="products">
 
@@ -24,7 +91,8 @@
         <form action="{% url 'cart:cart_add' object.id object.get_name %}" method="post">
             {% csrf_token %}
             {{cart_form}}
-            <input type="submit" value="добавить" >
+            <input type="submit" value="добавить" name='fname'>
+<!--            <input class="form-control" type="submit" value="добавить" id="fname" name="fname">-->
         </form>
              </div>
         {% endfor %}

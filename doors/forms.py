@@ -23,7 +23,6 @@ features_choice = [('замки Kale','замки Kale'),('с зеркалом',
 color_outside_choice = [('белый','белый'),('темный','темный'),('черный','черный'),('None','None')]
 price_scale_choice = [('По умолчанию','По умолчанию'),('Сначала дешевле','Сначала дешевле'),('Сначала дороже','Сначала дороже'),('None','None')]
 class filter_metal(forms.Form):
-    # type = forms.CharField(max_length=100)
     type = forms.TypedChoiceField(choices=type_choice,coerce = str)
     lock = forms.TypedChoiceField(choices=lock_choice,coerce = str)
     color_inside = forms.TypedChoiceField(choices=color_inside_choice,coerce = str)
