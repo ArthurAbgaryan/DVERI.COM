@@ -4,37 +4,55 @@
 
 
 {% block content %}
-{{query1}}
-{% for x in result_list %}{{x}}{% endfor %}
-<form action="." method="get" class="form-filter">
-    {{form_filter}}
-    <input type='submit' value="Фильтровать">
-</form>
-<div class="top-name-cetegory">
+<!--НАЧАЛО ФИЛЬТР ДЛЯ ВХОДНЫХ ДВЕРЕЙ-->
+    {% if  category == 24 %}
+    {% include 'doors/filters/filter_outdoors.html' %}
+    {% endif %}
+<!--КОНЕЦ ФИЛЬТР ДЛЯ ВХОДНЫХ ДВЕРЕЙ-->
 
+<!--НАЧАЛО ФИЛЬТР ДЛЯ МЕЖКОМНАТНЫХ ДВЕРЕЙ-->
+    {% if  category == 3 %}
+    {% include 'doors/filters/filter_woods.html' %}
+    {% endif %}
+<!--КОНЕЦ ФИЛЬТР ДЛЯ МЕЖКОМНАТНЫХ ДВЕРЕЙ-->
+
+<!--НАЧАЛО ФИЛЬТР ДЛЯ СКЛАДНЫХ ДВЕРЕЙ-->
+    {% if  category == 198 %}
+    {% include 'doors/filters/filter_skladn_doors.html' %}
+    {% endif %}
+<!--КОНЕЦ ФИЛЬТР ДЛЯ СКЛАДНЫХ ДВЕРЕЙ-->
+
+<!--НАЧАЛО ФИЛЬТР ДЛЯ СКРЫТЫХ ДВЕРЕЙ-->
+    {% if  category == 574 %}
+    {% include 'doors/filters/filter_skritih.html' %}
+    {% endif %}
+<!--КОНЕЦ ФИЛЬТР ДЛЯ СКРЫТЫХ ДВЕРЕЙ-->
+
+<div class="top-name-cetegory">
      {% if name_category_top %}
         {% for x in name_category_top%} {{x}} {% endfor %}
-        {% endif %}
+    {% endif %}
 </div>
 <div class="card-all">
-        {% for object in obj %}
+    {% for object in obj %}
         <div class="cardc-top">
-            <div class="cardc-name"> <a href="{% url 'doors:detail_card' object.id  %}">{{object.title}}</a></div>
-        <div class="cardc-color"> </div>
+            <div class="cardc-name">
+                <a href="{% url 'doors:detail_card' object.id  %}">{{object.title}}</a>
+            </div>
+            <div class="cardc-color"> </div>
 
         <div class="cardc-image">
             {% for value in object.pictures %}
-            <img src="{{ value.small }}" class="image_index">
-        {% endfor %}
-            </div>
+                <img src="{{ value.small }}" class="image_index">
+            {% endfor %}
+        </div>
         <div class="cardc-price">{{object.price}}</div>
-
-        <form action="{% url 'cart:cart_add' object.id object.get_name %}" method="post">
-            {% csrf_token %}
-            {{cart_form}}
-            <input type="submit" value="добавить" >
-        </form>
-             </div>
+            <form action="{% url 'cart:cart_add' object.id object.get_name %}" method="post">
+                {% csrf_token %}
+                {{cart_form}}
+                <input type="submit" value="добавить" >
+            </form>
+        </div>
         {% endfor %}
 
 </div>

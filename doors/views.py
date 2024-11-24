@@ -1,7 +1,7 @@
 from django.shortcuts import render,get_object_or_404,redirect
 from .models import products,categories,colors,properties,property_values,accessories
 from cart.forms import CartForm
-from .forms import SearchForm, measureForm,filter_metal
+from .forms import SearchForm, measureForm,filter_metal,filter_wood,filter_sk,filter_skr
 from django.contrib.postgres.search import SearchVector
 from django.core.mail import send_mail
 from django.conf import settings
@@ -10,6 +10,19 @@ from django.conf import settings
 def index(request,category = None,
           category_next = None,
           category_next_2 = None):
+#параметры филтра
+    form_filter = filter_metal()
+    query = None
+    result_list = []
+    result_properti = []
+    obj_id = []
+    id_product = []
+    order = None
+    category_id_metal = [491, 541, 535, 537, 308]
+    category_id_wood = [10,583,519,17,501,18,533,16,15,292,297,507,545,560,518,539,552,522,508,389,584,585,589,588,587,586,595,520,581,561,582,542,521,551,524,398,290,93,550,500,505,502,250,288,289,493,534,530,531,532,495,298,299]
+    category_skladnih_wood =[553,554,555,557,558,200,504]
+
+#конец парметров фильтра
 
     query1 = None
     result_properti = []
@@ -57,20 +70,92 @@ def index(request,category = None,
         else:
             obj = products.objects.filter(category_id = category)
 
-#Фильтр начало
+#Фильтр метал начало
+    if request.method == "GET":
+        if category == 24:
+            form_filter = filter_metal(request.GET)
+        if category == 3:
+            form_filter = filter_wood(request.GET)
+        if category == 198:
+            form_filter = filter_sk(request.GET)
+        if category == 574:
+            form_filter = filter_skr(request.GET)
+    if form_filter.is_valid():
+        query = form_filter.cleaned_data
+        for x in query.values():
+            result_list.append(x)
+            if x == 'Сначала дешевле':
+                order = 0
+            if x == 'Сначала дороже':
+                order = 1
+        result_properti = property_values.objects.filter(title__in=result_list)
+        obj_all = products.objects.all()
+        result_properti_count = result_properti.count()
+        for z in obj_all:
+            for y in result_properti:
+                for z_1 in z.properties:
+                    if z_1['value_id'] == y.id:
+                        result_properti_count -=1
+            if result_properti_count ==0:
+                obj_id.append(z.id)
+            result_properti_count = result_properti.count()
+        if order == 1:
+            if category == 24:
+                obj = products.objects.filter(id__in=obj_id, category_id__in=category_id_metal).order_by('-price')
+            if category == 3:
+                obj = products.objects.filter(id__in=obj_id, category_id__in=category_id_wood).order_by('-price')
+            if category == 198:
+                obj = products.objects.filter(id__in=obj_id, category_id__in=category_skladnih_wood).order_by('-price')
+            if category == 574:
+                obj = products.objects.filter(id__in=obj_id, category_id=574).order_by('-price')
+
+
+        elif order == 0:
+            if category == 24:
+                obj = products.objects.filter(id__in=obj_id, category_id__in=category_id_metal).order_by('price')
+            if category == 3:
+                obj = products.objects.filter(id__in=obj_id, category_id__in=category_id_wood).order_by('price')
+            if category == 198:
+                obj = products.objects.filter(id__in=obj_id, category_id__in=category_skladnih_wood).order_by('-price')
+            if category == 574:
+                obj = products.objects.filter(id__in=obj_id, category_id=574).order_by('-price')
+
+
+        else:
+            if category == 24:
+                obj = products.objects.filter(id__in=obj_id, category_id__in = category_id_metal)
+            if category == 3:
+                obj = products.objects.filter(id__in=obj_id, category_id__in=category_id_wood)
+            if category == 198:
+                obj = products.objects.filter(id__in=obj_id, category_id__in=category_skladnih_wood)
+            if category == 574:
+                obj = products.objects.filter(id__in=obj_id, category_id=574)
+
+
+#Фильтр метал конец
+    context = { 'query':query,
+                'form_filter':form_filter,
+                'id_product':id_product,
+                'obj':obj,
+                'result_properti':result_properti,
+                'result_list':result_list,
+                'cart_form':cart_form,
+                'midle_cat':middle_c,
+                'model_cat':model_1,
+                'name_category_top':name_category_top,
+                'query1':query1,
+                'category_id_metal':category_id_metal,
+                'category':category,
+                }
 
 
 
-#Фильтр конец
 
-    return render(request,'doors/index.html',{'obj':obj,
-                                              'cart_form':cart_form,
-                                              'midle_cat':middle_c,
-                                              'model_cat':model_1,
-                                              'name_category_top':name_category_top,
-                                              'query1':query1,
-                                              'form_filter':form_filter,
-                                              'result_list':result_list})
+#фильтр для межкомнатных дверей
+
+
+#Конец фильтр для межкомнатных дверей
+    return render(request,'doors/index.html',context)
 
 def detail_card (request, pk, des=1, detail_color_id=None, detail_size = None):
     description_1 = des
