@@ -1,7 +1,8 @@
+<div class="filter-doors">
+
 <form class="row g-3" action="." method="get">
     <div class="col-md-3">
         <select class="form-select" id="validationCustom04" name="view_w">
-<!--            <option value="&#45;&#45;">Вид</option>-->
                 {% for x in form_filter.view_w %}
                 {{x}}
                 {% endfor %}
@@ -9,7 +10,6 @@
     </div>
     <div class="col-md-3">
         <select class="form-select" id="validationCustom04" name="type">
-<!--            <option value="&#45;&#45;">Тип</option>-->
                 {% for x in form_filter.type %}
                 {{x}}
                 {% endfor %}
@@ -17,7 +17,6 @@
     </div>
     <div class="col-md-3">
         <select class="form-select" id="validationCustom04" name="style">
-<!--            <option value="&#45;&#45;">Стиль</option>-->
                 {% for x in form_filter.style %}
                 {{x}}
                 {% endfor %}
@@ -25,7 +24,6 @@
     </div>
     <div class="col-md-3">
         <select class="form-select" id="validationCustom04"  name="features_1">
-<!--            <option value="&#45;&#45;">Особенности</option>-->
                 {% for x in form_filter.features_1 %}
                 {{x}}
                 {% endfor %}
@@ -33,24 +31,14 @@
     </div>
     <div class="col-md-3">
         <select class="form-select" id="validationCustom04" name="color">
-<!--            <option value="&#45;&#45;">Цвет</option>-->
                 {% for x in form_filter.color %}
                 {{x}}
                 {% endfor %}
         </select>
     </div>
-<!--    <div class="col-md-3">-->
-<!--        <select class="form-select" id="validationCustom04" name="status">-->
-<!--            <option value="&#45;&#45;">Статус</option>-->
-<!--                {% for x in form_filter.status %}-->
-<!--                {{x}}-->
-<!--                {% endfor %}-->
-<!--        </select>-->
 
-<!--    </div>-->
     <div class="col-md-3">
         <select class="form-select" id="validationCustom04" name="price_scale" >
-<!--            <option value="&#45;&#45;">По умолчанию</option>-->
                 {% for x in form_filter.price_scale %}
                 {{x}}
                 {% endfor %}
@@ -59,9 +47,9 @@
             Please select a valid state.
         </div>
     </div>
-<!--    <div class="col-12">-->
         <div class="col-md-3">
 
         <button class="btn btn-primary" type="submit">Фильтровать</button>
     </div>
 </form>
+</div>

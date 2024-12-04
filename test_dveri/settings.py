@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'crispy_forms',
+    "crispy_bootstrap4",
     'doors',
     'django.contrib.postgres',
     'cart',
@@ -77,7 +79,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'test_dveri.wsgi.application'
 
-
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap4"
+CRISPY_TEMPLATE_PACK = "bootstrap4"
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 

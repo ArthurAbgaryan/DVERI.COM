@@ -1,10 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+<div class="filter-doors">
+<form class="row g-3" action="." method="get">
+
+    <div class="col-md-3">
+        <select class="form-select" id="validationCustom04" name="color_mzh">
+                {% for x in form_filter.color_mzh %}
+                {{x}}
+                {% endfor %}
+        </select>
+    </div>
+    <div class="col-md-3">
+        <select class="form-select" id="validationCustom04" name="status_mzh">
+                {% for x in form_filter.status_mzh %}
+                {{x}}
+                {% endfor %}
+        </select>
+    </div>
+
+    <div class="col-md-3">
+        <select class="form-select" id="validationCustom04" name="price_scale_mzh" >
+                {% for x in form_filter.price_scale_mzh %}
+                {{x}}
+                {% endfor %}
+        </select>
+        <div class="invalid-feedback">
+            Please select a valid state.
+        </div>
+    </div>
+        <div class="col-md-3">
+
+        <button class="btn btn-primary" type="submit">Фильтровать</button>
+    </div>
+</form>
+    </div>

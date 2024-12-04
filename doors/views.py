@@ -1,7 +1,7 @@
 from django.shortcuts import render,get_object_or_404,redirect
 from .models import products,categories,colors,properties,property_values,accessories
 from cart.forms import CartForm
-from .forms import SearchForm, measureForm,filter_metal,filter_wood,filter_sk,filter_skr
+from .forms import SearchForm, measureForm,filter_metal,filter_montazh,filter_furnitura,filter_wood,filter_deko,filter_plintus,filter_sk,filter_skr,filter_spec,filter_arki_and_portal
 from django.contrib.postgres.search import SearchVector
 from django.core.mail import send_mail
 from django.conf import settings
@@ -21,7 +21,12 @@ def index(request,category = None,
     category_id_metal = [491, 541, 535, 537, 308]
     category_id_wood = [10,583,519,17,501,18,533,16,15,292,297,507,545,560,518,539,552,522,508,389,584,585,589,588,587,586,595,520,581,561,582,542,521,551,524,398,290,93,550,500,505,502,250,288,289,493,534,530,531,532,495,298,299]
     category_skladnih_wood =[553,554,555,557,558,200,504]
-
+    category_spec_doors = [302,425,426,424,304]
+    category_arki = [271,536,236,592,593]
+    category_plintus = [474,452,454,540,455]
+    category_deko = [544,547,548,546]
+    category_furnitura = [320,321,322,333,486,487,324,325,330,326,313,314,359,360,506,361,362,363,364,490,368,489,369,529,370,327,328,329,318]
+    category_montazh = [57,189,190,229,58]
 #конец парметров фильтра
 
     query1 = None
@@ -80,6 +85,18 @@ def index(request,category = None,
             form_filter = filter_sk(request.GET)
         if category == 574:
             form_filter = filter_skr(request.GET)
+        if category == 300:
+            form_filter = filter_spec(request.GET)
+        if category == 38:
+            form_filter = filter_arki_and_portal(request.GET)
+        if category == 451:
+            form_filter = filter_plintus(request.GET)
+        if category == 543:
+            form_filter = filter_deko(request.GET)
+        if category == 106:
+            form_filter = filter_furnitura(request.GET)
+        if category == 56:
+            form_filter = filter_montazh(request.GET)
     if form_filter.is_valid():
         query = form_filter.cleaned_data
         for x in query.values():
@@ -108,6 +125,24 @@ def index(request,category = None,
                 obj = products.objects.filter(id__in=obj_id, category_id__in=category_skladnih_wood).order_by('-price')
             if category == 574:
                 obj = products.objects.filter(id__in=obj_id, category_id=574).order_by('-price')
+            if category == 300:
+                obj = products.objects.filter(id__in=obj_id, category_id__in=category_spec_doors).order_by('-price')
+            if category == 38:
+                obj = products.objects.filter(id__in=obj_id, category_id__in=category_arki).order_by('-price')
+            if category == 451:
+                obj = products.objects.filter(id__in=obj_id, category_id__in=category_plintus).order_by('-price')
+            if category == 543:
+                obj = products.objects.filter(id__in=obj_id, category_id__in=category_deko).order_by('-price')
+            if category == 106:
+                obj = products.objects.filter(id__in=obj_id, category_id__in=category_furnitura).order_by('-price')
+            if category == 56:
+                obj = products.objects.filter(id__in=obj_id, category_id__in=category_montazh).order_by('-price')
+
+
+
+
+
+
 
 
         elif order == 0:
@@ -116,9 +151,25 @@ def index(request,category = None,
             if category == 3:
                 obj = products.objects.filter(id__in=obj_id, category_id__in=category_id_wood).order_by('price')
             if category == 198:
-                obj = products.objects.filter(id__in=obj_id, category_id__in=category_skladnih_wood).order_by('-price')
+                obj = products.objects.filter(id__in=obj_id, category_id__in=category_skladnih_wood).order_by('price')
             if category == 574:
-                obj = products.objects.filter(id__in=obj_id, category_id=574).order_by('-price')
+                obj = products.objects.filter(id__in=obj_id, category_id=574).order_by('price')
+            if category == 300:
+                obj = products.objects.filter(id__in=obj_id, category_id__in=category_spec_doors).order_by('price')
+            if category == 38:
+                obj = products.objects.filter(id__in=obj_id, category_id__in=category_arki).order_by('price')
+            if category == 451:
+                obj = products.objects.filter(id__in=obj_id, category_id__in=category_plintus).order_by('price')
+            if category == 543:
+                obj = products.objects.filter(id__in=obj_id, category_id__in=category_deko).order_by('price')
+            if category == 106:
+                obj = products.objects.filter(id__in=obj_id, category_id__in=category_furnitura).order_by('price')
+            if category == 56:
+                obj = products.objects.filter(id__in=obj_id, category_id__in=category_montazh).order_by('price')
+
+
+
+
 
 
         else:
@@ -130,6 +181,23 @@ def index(request,category = None,
                 obj = products.objects.filter(id__in=obj_id, category_id__in=category_skladnih_wood)
             if category == 574:
                 obj = products.objects.filter(id__in=obj_id, category_id=574)
+            if category == 300:
+                obj = products.objects.filter(id__in=obj_id, category_id__in=category_spec_doors)
+            if category == 38:
+                obj = products.objects.filter(id__in=obj_id, category_id__in=category_arki)
+            if category == 451:
+                obj = products.objects.filter(id__in=obj_id, category_id__in=category_plintus)
+            if category == 543:
+                obj = products.objects.filter(id__in=obj_id, category_id__in=category_deko)
+            if category == 106:
+                obj = products.objects.filter(id__in=obj_id, category_id__in=category_furnitura)
+            if category == 56:
+                obj = products.objects.filter(id__in=obj_id, category_id__in=category_montazh)
+
+
+
+
+
 
 
 #Фильтр метал конец

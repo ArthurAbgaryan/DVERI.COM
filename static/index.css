@@ -1,5 +1,246 @@
-@media screen and (min-width:992px) {
-    .navbar .container-fluid,.navbar-expand-lg .navbar-collapse, .navbar-expand-lg .navbar-nav {
-        flex-direction:column;
-    }
+html {
+    font-size: 16px;
+
 }
+
+body{
+    /*font-family:font-family-base;*/
+    /*font-size:font-size-base;*/
+    font-family:  "Roboto", sans-serif;  /*шрифт который мы подключили отдельно */
+    /*font-size: 16px;*/
+    font-style: normal;
+    font-weight:400;
+    font-height:line-height-base;
+    color:#000;
+    background-color:#fff;
+    min-width:320px; /*минимальная оптимальная ширина экрана */
+    overflow-x: hidden;
+
+
+}
+
+/* Добавляем адаптивность для всех картинок, чтобы они адаптировались под тот блок где они помещены*/
+/* это делается дыумя параметрами */
+img {
+    max-width: 100%;
+    height:auto;
+}
+
+/* Добавляем отступы для всех секций  50px сверху отступ,а слева и справа 0*/
+/* у нас будет контентная часть  которая будет помешена в секции и для того что бы мы для каждой секции не задавали отступы */
+section {
+    padding: 50px 0; /* устан-ет внутр. отступы внутри эл-та*/
+}
+ /* Настройка ссылок */
+ a{
+    color:#111;
+ }
+/* при наведении */
+ a:hover {
+    color:#555;
+ }
+ /* Начало стили для навигац панели */
+
+
+/* настройка горизонтальной панели */
+ .navbar-bok .navbar .container-fluid{
+    display:flex;
+    justify-content:space-between;
+    /*margin-left:80%;*/
+
+ }
+
+.navbar-nav .dropdown-menu{
+    left:auto;
+    right:0;
+}
+
+
+/*
+ .navbar-bok .navbar-expand-lg .navbar-collapse .navbar-nav{
+    display:flex;
+    justify-content:flex-end;
+    margin-left:80%;
+
+ }
+ */
+ .bg-body-tertiary .navbar-nav .nav-link {
+    color:#111;
+    /*font-weight: 500;*/
+    text-transform: uppercase;
+ }
+
+ .top-menu li a::after { /*after псевдо эл-т позвол. добавить контент после выбронного эл-та*/
+    content:'';
+    display: block;
+    width:100%;
+    background-color:#111;
+    height:1px;
+    transition:all .3s; /*плавность*/
+    transform: scale(0); /* скрываем контант чтобы его не было видно */
+
+ }
+
+ /* При наведении transform меняет свое значение и повляется после наведения*/
+.top-menu li a:hover::after {
+    transform:scale(1);
+}
+
+.modal-body img {
+    width:50px;
+}
+ /*  Конец стили для навигац панели */
+
+/* Настройка боковой паели навигации */
+.navbar-vertical-2 .container-fluid,.navbar-vertical-2 .navbar-collapse,.navbar-vertical-2 .navbar-nav {
+    flex-direction:column;
+}
+.navbar-vertical-2 {
+    width:25%;
+}
+
+/* Настройка боковой паели навигации */
+.block-content {
+    display:flex;
+    flex-direction:row;
+
+}
+
+.block-content .cardc {
+    width:75%;
+    display:flex;
+    flex-direction:column;
+   /* flex-wrap:wrap; /*переносит элем-ты на новую строку*/
+    /*justify-content:space-evenly;*/
+    margin:10px;
+}
+.block-content .cardc .card-all {
+    /*width:75%;*/
+    display:flex;
+    flex-direction:row;
+    flex-wrap:wrap; /*переносит элем-ты на новую строку*/
+    justify-content:space-evenly;
+    margin:10px;
+}
+
+/* Стиль для футтера */
+#footer-main {
+    background-color:red;
+    display:flex;
+    flex-direction:row;
+    justify-content:space-evenly;
+}
+
+
+.block-content .cardc-top {
+    margin:25px;
+}
+.block-content .cardc-top img {
+    height:240px;
+    padding:3px;
+}
+
+.block-content .cardc-top .cardc-image {
+    display:flex;
+    flex-direction:row;
+}
+
+#middle-category{
+    padding-left:15px;
+}
+
+#model-category{
+    padding-left:15px;
+}
+
+/* Описание свойтсва страницы детализации товара */
+
+.block-content .detail-block {
+    display:flex;
+    flex-direction: column;
+    width:100%;
+}
+.block-content .detail-img-option{
+    display:flex;
+    justify-content:space-evenly;
+
+
+}
+.block-content .detail-img-option .detail-img img {
+    height:500px;
+    width:auto;
+
+}
+.block-content .detail-img-option .detail-img {
+    display:flex;
+
+
+}
+
+.block-content .detail-option{
+    display:flex;
+    flex-direction:column;
+    padding-left:10px;
+    }
+.block-content .title_color-vender_cod{
+    width:400px;
+    display:flex;
+    justify-content:space-between;
+    }
+.block-content .list-description{
+    display:flex;
+}
+.block-content .detail-option .list_size{
+    display:flex;
+}
+
+.block-content .top-name-cetegory{
+    display:flex;
+    justify-content:space-around;
+    margin-top:40px;
+}
+
+.block-content .detail-option .title-obj{
+    font-weight:bold;
+    font-size: 20px;
+    padding-bottom:20px;
+}
+.block-content .detail-option,.block-content .title_color, .block-content title_color-vender_cod, .block-content .list_color, .block-content .list-size-obj , .block-content .price {
+    padding-bottom:20px;
+}
+.block-content .label-price {
+    opacity: .6;
+}
+
+.block-content  .vander-cod-label, .block-content .label-color , .block-content .label-size , .block-content .top-name-cetegory {
+    opacity: .6;
+}
+
+.block-content .vander-cod-label{
+    display:flex;
+}
+
+
+.block-content .detail-block{
+    padding-left:50px;
+    padding-top:50px;
+    padding-right:50px;
+}
+#list_colors_detail {
+    height:30px;
+}
+
+/* Конец описания свойств страницы деталицазии */
+
+/* Cтилизация корзины */
+#cart_list img {
+    height:80px;
+    weight:auto;
+
+}
+
+/* Конец стилизации корзины */
+
+/* начало стилизация карусели */
+
+/*конец стилизация карусели */

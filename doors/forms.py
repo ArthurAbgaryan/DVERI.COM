@@ -40,7 +40,7 @@ color_choice = [('--','Цвет'),('белый','белый'),('светлый',
 style_choice_1 = [('--','Стиль'),('классика','классика'),('модерн','модерн'),('минимализм','минимализм'),('неоклассика','неоклассика')]
 features_choice_1 = [('--','Особенности'),('painted wood','painted wood'),('объемная филенка','объемная филенка'),('с зеркалом','с зеркалом'),('черный декор','черный декор')]
 # status_choice = [('--','Статус'),('белый','белый'),('темный','темный'),('черный','черный')]
-price_scale_choice = [('--','По умолчанию'),('По умолчанию','По умолчанию'),('Сначала дешевле','Сначала дешевле'),('Сначала дороже','Сначала дороже')]
+price_scale_choice = [('--','По умолчанию'),('Сначала дешевле','Сначала дешевле'),('Сначала дороже','Сначала дороже')]
 class filter_wood(forms.Form):
     view_w = forms.TypedChoiceField(choices=view_choice,coerce = str)
     type = forms.TypedChoiceField(choices=type_choice_1,coerce = str)
@@ -75,3 +75,72 @@ class filter_skr(forms.Form):
     color = forms.TypedChoiceField(choices=color_line,coerce = str)
     price_scale_skr = forms.TypedChoiceField(choices=price_scale_choice,coerce = str)
 #Конец формы для скрытых дверей
+
+#Начало форма для специальных дверей
+type_spc = [('--','Тип'),('остекленные','остекленные'),('глухие','глухие')]
+color_spc = [('--','Цвет'),('белый','белый'),('светлый','светлый'),('темный','темный')]
+
+class filter_spec(forms.Form):
+    type_c = forms.TypedChoiceField(choices=type_spc,coerce = str)
+    color_c = forms.TypedChoiceField(choices=color_spc,coerce = str)
+    price_scale_spc = forms.TypedChoiceField(choices=price_scale_choice,coerce = str)
+#Конец формы для специальных дверей
+
+
+#Начало форма для арок и порталов
+view_arki = [('--','Вид'),('арки','арки'),('порталы','порталы')]
+osobenosti_ark = [('--','Особенности'),('painted wood','painted wood')]
+style_ark = [('--','Стиль'),('классика','классика'),('модерн','модерн')]
+color_arki = [('--','Цвет'),('темный','темный'),('белый','белый'),('светлый','светлый'),('черный','черный')]
+
+class filter_arki_and_portal(forms.Form):
+    vid = forms.TypedChoiceField(choices=view_arki,coerce = str)
+    style = forms.TypedChoiceField(choices=style_ark,coerce = str)
+    osobenosti_arki = forms.TypedChoiceField(choices=osobenosti_ark,coerce = str)
+    color_arki = forms.TypedChoiceField(choices=color_arki,coerce = str)
+    price_scale_ark = forms.TypedChoiceField(choices=price_scale_choice,coerce = str)
+#Конец формы для арок и порталов
+
+
+#Начало форма для плинтусов
+status_plintus = [('--','Статус'),('sale','sale'),('скоро','скоро'),('складская программа','складская программа')]
+color_plintus = [('--','Цвет'),('белый','белый'),('светлый','светлый'),('темный','темный'),('хром','хром'),('под покраску','под покраску')]
+
+class filter_plintus(forms.Form):
+    color_pl = forms.TypedChoiceField(choices=color_plintus,coerce = str)
+    status_pl = forms.TypedChoiceField(choices=status_plintus,coerce = str)
+    price_scale_plintus = forms.TypedChoiceField(choices=price_scale_choice,coerce = str)
+#Конец формы для плинтусов
+
+
+#Начало форма для деко реек
+status_deko = [('--','Статус'),('складская программа','складская программа')]
+color_deko = [('--','Цвет'),('белый','белый'),('светлый','светлый'),('темный','темный'),('черный','черный'),('под покраску','под покраску')]
+
+class filter_deko(forms.Form):
+    color_dk = forms.TypedChoiceField(choices=color_deko,coerce = str)
+    status_dk = forms.TypedChoiceField(choices=status_deko,coerce = str)
+    price_scale_dk = forms.TypedChoiceField(choices=price_scale_choice,coerce = str)
+#Конец формы для деко реек
+
+
+
+#Начало форма для фурнитура
+status_furnitura = [('--','Статус'),('sale','sale'),('hit','хит'),('складская программа','складская программа')]
+color_furnitura = [('--','Цвет'),('хром','хром'),('золото','золото'),('бронза','бронза'),('серебро','серебро'),('серый','серый'),('коричневый','коричневый'),('белый','белый'),('светлый','светлый'),('темный','темный'),('черный','черный')]
+
+class filter_furnitura(forms.Form):
+    color_fr = forms.TypedChoiceField(choices=color_furnitura,coerce = str)
+    status_fr = forms.TypedChoiceField(choices=status_furnitura,coerce = str)
+    price_scale_fr = forms.TypedChoiceField(choices=price_scale_choice,coerce = str)
+#Конец формы для фурнитура
+
+#Начало форма для фурнитура
+status_montazh = [('--','Статус'),('sale','sale'),('hit','хит'),('складская программа','складская программа')]
+color_montazh = [('--','Цвет'),('светлый','светлый'),('черный','черный')]
+
+class filter_montazh(forms.Form):
+    color_mzh = forms.TypedChoiceField(choices=color_montazh,coerce = str)
+    status_mzh = forms.TypedChoiceField(choices=status_montazh,coerce = str)
+    price_scale_mzh = forms.TypedChoiceField(choices=price_scale_choice,coerce = str)
+#Конец формы для фурнитура

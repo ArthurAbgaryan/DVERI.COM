@@ -4,6 +4,8 @@ html {
 }
 
 body{
+    display:flex;
+    flex-direction:column;
     /*font-family:font-family-base;*/
     /*font-size:font-size-base;*/
     font-family:  "Roboto", sans-serif;  /*шрифт который мы подключили отдельно */
@@ -15,6 +17,8 @@ body{
     background-color:#fff;
     min-width:320px; /*минимальная оптимальная ширина экрана */
     overflow-x: hidden;
+    min-height:100vh;
+    margin:0;
 
 
 }
@@ -103,6 +107,8 @@ section {
 .block-content {
     display:flex;
     flex-direction:row;
+    flex-grow: 1;/* Чтобы занимал оставшееся пространство до футера */
+
 
 }
 
@@ -232,3 +238,33 @@ section {
 }
 
 /* Конец стилизации корзины */
+ /* Стилизация футера*/
+#footer-mai {
+    background-color:grey;
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    height:100px;
+    margin-bottom:0px;
+}
+
+#footer-main{
+    background-color:grey;
+    display:flex;
+    flex-direction:row;
+    /*justify-content:space-around;*/
+    align-items:center;
+    justify-content:space-evenly;
+    position:relative;
+    height:10vh;
+
+
+}
+
+/*Конец стилизации футера*/
+
+/*Стилизация формы замера*/
+.all-form-measure .form-control {
+    width:60%;
+}
+/*Стилизация формы замера*/
