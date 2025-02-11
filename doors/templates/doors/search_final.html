@@ -1,30 +1,58 @@
 {% extends 'doors/base_new.html' %}
 {% block content %}
 
-<div class="container-sm card-cont">
-<div class="cardc">
+<!--<div class="container-sm card-cont">-->
+<!--<div class="cardc">-->
 
-        {% for object in results %}
+<!--        {% for object in results %}-->
+<!--        <div class="cardc-top">-->
+<!--            <div class="cardc-name"> <a href="{% url 'doors:detail_card' object.id  %}">{{object.title}}</a></div>-->
+<!--        <div class="cardc-color"> </div>-->
+
+<!--        <div class="cardc-image">-->
+<!--            {% for value in object.pictures %}-->
+<!--            <img src="{{ value.small }}" class="image_index">-->
+<!--        {% endfor %}-->
+<!--            </div>-->
+<!--        <div class="cardc-price">{{object.price}}</div>-->
+
+<!--        <form action="{% url 'cart:cart_add' object.id object.get_name %}" method="post">-->
+<!--            {% csrf_token %}-->
+<!--            {{cart_form}}-->
+<!--            <input type="submit" value="добавить" >-->
+<!--        </form>-->
+<!--             </div>-->
+<!--        {% endfor %}-->
+
+<!--</div>-->
+<!--</div>-->
+<div class="result-search">Результаты поиска по запросу "{{query}}"</div>
+<div class="card-all">
+    {% for object in results %}
         <div class="cardc-top">
-            <div class="cardc-name"> <a href="{% url 'doors:detail_card' object.id  %}">{{object.title}}</a></div>
-        <div class="cardc-color"> </div>
-
+            <div class="cardc-name">
+                <a href="{% url 'doors:detail_card' object.id  %}">{{object.title}}</a>
+            </div>
+            {% for c in color %}
+            {% if c.id == object.color_id %}
+            <div class="cardc-color">{{c.title}}</div>
+            {% endif %}
+            {% endfor %}
         <div class="cardc-image">
             {% for value in object.pictures %}
-            <img src="{{ value.small }}" class="image_index">
-        {% endfor %}
+                <img src="{{ value.small }}" class="image_index">
+            {% endfor %}
+        </div>
+            <div class="cardc-price">
+                <div class="price">{{object.price}}</div>
+                <div class="ikon"><i class="fa-solid fa-ruble-sign"></i></div>
             </div>
-        <div class="cardc-price">{{object.price}}</div>
-
-        <form action="{% url 'cart:cart_add' object.id object.get_name %}" method="post">
-            {% csrf_token %}
-            {{cart_form}}
-            <input type="submit" value="добавить" >
-        </form>
-             </div>
+<!--            <form action="{% url 'cart:cart_add' object.id object.get_name %}" method="post">-->
+<!--                {% csrf_token %}-->
+<!--                {{cart_form}}-->
+<!--                <input type="submit" value="добавить" >-->
+<!--            </form>-->
+        </div>
         {% endfor %}
-
 </div>
-</div>
-
 {% endblock %}

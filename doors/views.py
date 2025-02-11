@@ -16,6 +16,7 @@ def index(request,category = None,
     result_list = []
     result_properti = []
     obj_id = []
+    colors_id = []
     id_product = []
     order = None
     category_id_metal = [491, 541, 535, 537, 308]
@@ -47,7 +48,6 @@ def index(request,category = None,
         model_c_id = []
         middle_c = categories.objects.filter(parent_id = category).exclude(id__in= [270,590,238])
         if middle_c:
-
             for m_c_id in middle_c:
                 middle_c_id.append(m_c_id.id)
             model_category_list = categories.objects.filter(parent_id__in = middle_c_id).exclude(id__in = exclude_category_model_mezhkomnt)
@@ -139,12 +139,6 @@ def index(request,category = None,
                 obj = products.objects.filter(id__in=obj_id, category_id__in=category_montazh).order_by('-price')
 
 
-
-
-
-
-
-
         elif order == 0:
             if category == 24:
                 obj = products.objects.filter(id__in=obj_id, category_id__in=category_id_metal).order_by('price')
@@ -168,10 +162,6 @@ def index(request,category = None,
                 obj = products.objects.filter(id__in=obj_id, category_id__in=category_montazh).order_by('price')
 
 
-
-
-
-
         else:
             if category == 24:
                 obj = products.objects.filter(id__in=obj_id, category_id__in = category_id_metal)
@@ -193,7 +183,9 @@ def index(request,category = None,
                 obj = products.objects.filter(id__in=obj_id, category_id__in=category_furnitura)
             if category == 56:
                 obj = products.objects.filter(id__in=obj_id, category_id__in=category_montazh)
-
+    for c in obj:
+        colors_id.append(c.color_id)
+    color = colors.objects.filter(id__in=colors_id)
 
 
 
@@ -214,6 +206,7 @@ def index(request,category = None,
                 'query1':query1,
                 'category_id_metal':category_id_metal,
                 'category':category,
+                'color':color,
                 }
 
 
@@ -228,6 +221,7 @@ def index(request,category = None,
 def detail_card (request, pk, des=1, detail_color_id=None, detail_size = None):
     description_1 = des
     list_colors_id_this_obj = []
+    with_detail_obj_buy = []
     category_2=[]
     name_category_top = ['Главная']
     category_1 =[]
@@ -287,7 +281,13 @@ def detail_card (request, pk, des=1, detail_color_id=None, detail_size = None):
                 m_a_id = properties.objects.get(id = m_a['id']).title
                 m_a_values = property_values.objects.get(id = m_a['value_id']).title
                 metal_acsessory[m_a_id] = m_a_values
+    with_buy_list =[]
+    if detail_obj.related_products:
+        for buy in detail_obj.related_products:
+            with_buy_list.append(buy['id'])
+        with_detail_obj_buy = products.objects.filter(id__in = with_buy_list)
     context = {'detail_obj':detail_obj,
+               'with_detail_obj_buy':with_detail_obj_buy,
                'metal_acsessory':metal_acsessory,
                'complectation':complectation,
                'description_number':description_1,
@@ -307,14 +307,19 @@ def search(request):
     cart_form = CartForm()
     query = None
     results = []
+    colors_id =[]
     if 'query' in request.GET:
         form_search = SearchForm(request.GET)
     if form_search.is_valid():
         query = form_search.cleaned_data['query']
         results = products.objects.annotate(search = SearchVector('title','vendor_code')).filter(search = query)
+    for c in results:
+        colors_id.append(c.color_id)
+    color = colors.objects.filter(id__in=colors_id)
     return render(request, 'doors/search_final.html',{'form_search':form_search,
                                                       'query': query,
                                                       'results':results,
+                                                      'color':color,
                                                       'cart_form':cart_form})
 
 def contacts(request):

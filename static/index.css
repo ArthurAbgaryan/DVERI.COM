@@ -1,20 +1,58 @@
+
+
+/*карусель похожих товаров
+.img-wrapper{
+    max-width:100%;
+    height:13em;
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+}
+img {
+    max-width:100%;
+    max-height:100%;
+}
+@media screen and (min-width:576px) {
+    .block-content  .carousel-inner{
+        display:flex;
+    }
+    .block-content .carousel-item{
+        display:block;
+        margin-right:0;
+        flex:0 0 calc(100%/3);
+    }
+}
+.block-content ..carousel-inner{
+    padding:1em;
+}
+
+.block-content .card{
+    margin:0 .5em
+}
+Конец карусель похожих товаров*/
 html {
     font-size: 16px;
 
 }
 
 body{
+    display:flex;
+    flex-direction:column;
     /*font-family:font-family-base;*/
     /*font-size:font-size-base;*/
-    font-family:  "Roboto", sans-serif;  /*шрифт который мы подключили отдельно */
+    font-family:   "Rubik", serif;  /*шрифт который мы подключили отдельно */
     /*font-size: 16px;*/
+    font-optical-sizing: auto;
+    font-variation-settings:"wdth" 100;
     font-style: normal;
-    font-weight:400;
+    font-weight:100;
     font-height:line-height-base;
     color:#000;
     background-color:#fff;
     min-width:320px; /*минимальная оптимальная ширина экрана */
     overflow-x: hidden;
+    min-height:100vh;
+    margin:0;
 
 
 }
@@ -97,15 +135,20 @@ section {
 }
 .navbar-vertical-2 {
     width:25%;
+    box-shadow: 2px 2px 5px 0px rgba(0, 0, 0, 0.3);
+
 }
 
 /* Настройка боковой паели навигации */
+
 .block-content {
     display:flex;
     flex-direction:row;
-
+    flex-grow: 1;/* Чтобы занимал оставшееся пространство до футера */
 }
 
+/*-------------------------------------------------------------------------------------------------------*/
+/*Начало стилей шаблона index */
 .block-content .cardc {
     width:75%;
     display:flex;
@@ -119,38 +162,129 @@ section {
     display:flex;
     flex-direction:row;
     flex-wrap:wrap; /*переносит элем-ты на новую строку*/
-    justify-content:space-evenly;
-    margin:10px;
+    justify-content:space-evenly;/*space-evenly*/
 }
-
-/* Стиль для футтера */
-#footer-main {
-    background-color:red;
-    display:flex;
-    flex-direction:row;
-    justify-content:space-evenly;
-}
-
-
 .block-content .cardc-top {
-    margin:25px;
+/*    display:flex;
+    flex-direction:column;
+    justify-content:flex-start;
+    /*flex:0 0 calc(100%/4);
+    background-color:red;
+    height:10% */
+    height:10%;
 }
 .block-content .cardc-top img {
-    height:240px;
-    padding:3px;
+    display:flex;
+    height:100%;
+    /*justify-content:center;
+    align-items:center;*/
 }
-
 .block-content .cardc-top .cardc-image {
     display:flex;
     flex-direction:row;
+    justify-content:center;
+    /*overflow: hidden;    /*не позволяет картинке выйти за рамки конетенера cardc-top*/
+}
+.block-content .cardc-top .cardc-name{
+    display:flex;
+    justify-content:center;
+}
+.block-content .cardc-top .cardc-color{
+    display:flex;
+    justify-content:center;
+    opacity: .6;
+    font-size:80%;
+}
+.block-content .cardc-top .cardc-name a {
+    text-decoration:none;
+    font-weight:500;
+}
+.block-content .cardc-top .cardc-price{
+    display:flex;
+    justify-content:center;
+    text-decoration:none;
+    font-weight:500;
+    /*height:0%;*/
+}
+.block-content .price{
+    font-size:120%;
+}
+/*-------------------------------------------------------------------------------------------------------*/
+/*Конец стилей шаблона index */
+
+/*-------------------------------------------------------------------------------------------------------*/
+/*начало нового стилей шаблона index */
+.block-content .kard-all{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-evenly;
+    width:100%;
 }
 
+.block-content .kard{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    flex: 0 0 calc(100%/4);
+    margin-top:3%;
+    margin-bottom:3%;
+    background-color:
+
+
+}
+.block-content .kard-name a{
+    text-decoration:none;
+    font-weight:400;
+}
+.block-content .kard-color{
+    font-size:80%;
+    opacity: .6;
+    margin-bottom:2%;
+}
+.block-content .kard-image{
+    display:flex;
+    flex-direction:row;
+    justify-content:center;
+    height:auto;
+    width:45%;
+    height:70%;
+}
+.block-content .kard-price{
+    font-size:120%;
+    text-decoration:none;
+    font-weight:400;
+
+}
+.block-content .kard-group-price{
+    display:flex;
+    margin-top:5%;
+}
+/*-------------------------------------------------------------------------------------------------------*/
+/*конец нового стилей шаблона index */
+
+/*Начало стилей в мобильном разрешении*/
+/*-------------------------------------------------------------------------------------------------*/
+@media(max-width:480px){
+    .block-content .kard{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    flex: 0 0 calc(100%/2);
+    margin-top:3%;
+    margin-bottom:3%;
+    background-color:red;
+    }
+}
+
+
+/*Конец стилей в мобильном разрешении*/
+/*-------------------------------------------------------------------------------------------------*/
 #middle-category{
-    padding-left:15px;
+    padding-left:5%;
 }
 
 #model-category{
-    padding-left:15px;
+    padding-left:5%;
 }
 
 /* Описание свойтсва страницы детализации товара */
@@ -159,16 +293,138 @@ section {
     display:flex;
     flex-direction: column;
     width:100%;
+    }
+
+.block-content .detail-block .list-description {
+    margin-top:4%;
+    margin-bottom:4%;
 }
+
+.block-content .detail-block .list-description a{
+    text-decoration:None;
+    font-style: normal;
+    font-weight:500;
+}
+
+.block-content .detail-block .title-description{
+    font-style;
+    font-weight:500;
+}
+
+.block-content .detail-block .main-description {
+    margin-bottom:2%;
+}
+
 .block-content .detail-img-option{
     display:flex;
     justify-content:space-evenly;
+}
+
+.block-content .detail-block .detail-option .price {
+    font-size:120%;
+    font-weight:500;
+}
+.block-content .detail-block .detail-option .price  i {
+    font-size:70%;
+    }
+.block-content .detail-block .detail-option .list_size {
+    display:flex;
+    justify-content:flex-start;
+    gap:1%;
+
+}
+.block-content .detail-option .list-size-obj a {
+    text-decoration:none;
+    margin-bottom: 0px;
+}
+
+.block-content .detail-block input{
+    background: transparent;
+    border-style :double;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius:10%;
+    height:100%
+}
+/*.block-content .detail-block .complectation-table input{
+    background: transparent;
+    border-style :double;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius:10%;
+    height:40%
+}*/
+
+.block-content .detail-block .flex_table_main_complectation-table{
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
 
 
 }
+
+.block-content .detail-block .table_body_row-complectation{
+    display:flex;
+    flex-direction:row;
+    margin-bottom: 2%;
+
+}
+
+.block-content .detail-block .table-body-cell{
+    width:100%;
+    flex:1 1 auto; /*  параметр для выравнивания ячеек чтобы не плыли */
+}
+
+block-content  {
+    background-color:red;
+}
+
+.block-content .detail-block .table-body-cell button {
+    background: transparent;
+    border-style :double;
+    border: 1px solid rgba(0, 0, 0, 0);
+    border-radius:10%;
+
+}
+
+
+ .block-content .list-description{
+    display:flex;
+    flex-direction:row;
+    justify-content:center;
+    gap:2%;
+ }
+
+.block-content .detail-option  .list-size-obj  {
+    display:flex;
+    justify-content:center;
+    border-style :double;
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    /*border-color:black;*/
+    border-radius:10%;
+    height:100%;
+
+
+}
+.block-content .detail-option .list_size{
+    display:flex;
+    height:12%;
+}
+
+.block-content .detail-option .button-buy{
+        height:10%;
+}
+
+.block-content .detail-option  .list-size-obj a{
+    text-align:center;
+    justify-content:center;
+
+
+
+}
+
 .block-content .detail-img-option .detail-img img {
-    height:500px;
+    height:430px;
     width:auto;
+    padding:1%;
 
 }
 .block-content .detail-img-option .detail-img {
@@ -181,6 +437,7 @@ section {
     display:flex;
     flex-direction:column;
     padding-left:10px;
+    height:100%;
     }
 .block-content .title_color-vender_cod{
     width:400px;
@@ -190,14 +447,12 @@ section {
 .block-content .list-description{
     display:flex;
 }
-.block-content .detail-option .list_size{
-    display:flex;
-}
+
 
 .block-content .top-name-cetegory{
     display:flex;
     justify-content:space-around;
-    margin-top:40px;
+    margin-top:5%;
 }
 
 .block-content .detail-option .title-obj{
@@ -240,7 +495,47 @@ section {
 }
 
 /* Конец стилизации корзины */
+ /* Стилизация футера*/
 
-/* начало стилизация карусели */
+#footer-main{
+    background-color:grey;
+    display:flex;
+    flex-direction:row;
+    /*justify-content:space-around;*/
+    align-items:center;
+    justify-content:space-evenly;
+    position:relative;
+    height:10vh;
+}
 
-/*конец стилизация карусели */
+.footer-main a {
+    text-decoration:none;
+}
+
+/*Конец стилизации футера*/
+
+/*Стилизация формы замера*/
+.all-form-measure .form-control {
+    width:60%;
+}
+/*Стилизация формы замера*/
+
+/*Стиль списка в горизонтальной панели*/
+
+.nav-list {
+    display:flex;
+    align-items:center;
+    justify-content:space-around;
+    text-decoration:none;
+    width:70vh;
+
+}
+.nav-list a {
+    text-decoration:none;
+    font-style: normal;
+    font-weight:500;
+
+}
+
+/*Стиль списка в горизонтальной панели*/
+

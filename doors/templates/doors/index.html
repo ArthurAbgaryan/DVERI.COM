@@ -92,63 +92,61 @@
 <!--НАЧАЛО КАРТОЧКИ ТОВАРА БЕЗ СТИЛЕЙ-->
 <div class="top-name-cetegory">
      {% if name_category_top %}
-        {% for x in name_category_top%} {{x}} {% endfor %}
+        {% for x in name_category_top %} {{x}} {% endfor %}
     {% endif %}
 </div>
-<div class="card-all">
-    {% for object in obj %}
-        <div class="cardc-top">
-            <div class="cardc-name">
-                <a href="{% url 'doors:detail_card' object.id  %}">{{object.title}}</a>
-            </div>
-            <div class="cardc-color"> </div>
-
-        <div class="cardc-image">
-            {% for value in object.pictures %}
-                <img src="{{ value.small }}" class="image_index">
-            {% endfor %}
-        </div>
-        <div class="cardc-price">{{object.price}}</div>
-            <form action="{% url 'cart:cart_add' object.id object.get_name %}" method="post">
-                {% csrf_token %}
-                {{cart_form}}
-                <input type="submit" value="добавить" >
-            </form>
-        </div>
-        {% endfor %}
-</div>
+<!--<div class="card-all">-->
+<!--    {% for object in obj %}-->
+<!--        <div class="cardc-top">-->
+<!--            <div class="cardc-name">-->
+<!--                <a href="{% url 'doors:detail_card' object.id  %}">{{object.title}}</a>-->
+<!--            </div>-->
+<!--                {% for c in color %}-->
+<!--                {% if c.id == object.color_id %}-->
+<!--            <div class="cardc-color">{{c.title}}</div>-->
+<!--                {% endif %}-->
+<!--                {% endfor %}-->
+<!--            <div class="cardc-image">-->
+<!--                {% for value in object.pictures %}-->
+<!--                    <img src="{{ value.small }}" class="image_index">-->
+<!--                {% endfor %}-->
+<!--            </div>-->
+<!--            <div class="cardc-price">-->
+<!--                <div class="price">{{object.price}}</div>-->
+<!--                <div class="ikon"><i class="fa-solid fa-ruble-sign"></i></div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        {% endfor %}-->
+<!--</div>-->
 
 <!--КОНЕЦ КАРТОЧКИ ТОВАРА БЕЗ СТИЛЕЙ-->
 
 
-<!--НАЧАЛО СТИЛЕЙ BOOTSTRAP КАРТОЧКИ-->
-<!--<div class="card" style="width: 18rem;">-->
-<!--    {% for object in obj %}-->
-<!--    {% for value in object.pictures %}-->
-<!--  <img src="{{ value.small }}" class="card-img-top" alt="...">-->
-<!--    {% endfor %}-->
-<!--  <div class="card-body">-->
-<!--      <a href="{% url 'doors:detail_card' object.id  %}"><h5 class="card-title">{{object.title}}</h5></a>-->
-<!--    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
-<!--  </div>-->
-<!--  <ul class="list-group list-group-flush">-->
-<!--    <li class="list-group-item">{{object.price}}</li>-->
-<!--    <li class="list-group-item">-->
-<!--        <form action="{% url 'cart:cart_add' object.id object.get_name %}" method="post">-->
-<!--                {% csrf_token %}-->
-<!--                {{cart_form}}-->
-<!--                <input type="submit" value="добавить" >-->
-<!--            </form>-->
-<!--    </li>-->
-<!--    <li class="list-group-item">A third item</li>-->
-<!--  </ul>-->
-<!--  <div class="card-body">-->
-<!--    <a href="#" class="card-link">Card link</a>-->
-<!--    <a href="#" class="card-link">Another link</a>-->
-<!--  </div>-->
-<!--    {% endfor %}-->
-<!--</div>-->
+<!--НАЧАЛО СПИСОК КАРТОЧКИ ТОВАРОВ-->
 
-<!--КОНЕЦ СТИЛЕЙ BOOTSTRAP КАРТОЧКИ-->
+<div class="kard-all">
+    {% for x in obj %}
+        <div class="kard">
+            <div class="kard-name"><a href="{% url 'doors:detail_card' x.id %}">{{x.title}}</a></div>
+            {% for c in color %}
+                {% if c.id == x.color_id %}
+                <div class="kard-color">{{c.title}}</div>
+                {% endif %}
+            {% endfor %}
+            <div class="kard-image">
+            {% for i in x.pictures %}
+                <img src="{{i.small}}" alt="">
+            {%  endfor %}
+                </div>
+            <div class="kard-group-price">
+                <div class="kard-price">{{x.price}}</div>
+                <div class="ikon"><i class="fa-solid fa-ruble-sign"></i></div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+<!--КОНЕЦ СПИСКА КАРТОЧКИ ТОВАРОВ-->
+
 
 {% endblock %}

@@ -2,6 +2,18 @@
 {% load static %}
 
 {% block content %}
+<!--<script>-->
+<!--var carouselWidth = $('.carousel-inner')[0].scrollWidth;-->
+<!--var cardWidth = $('.carousel-item').width();-->
+
+<!--var scrollPosition = 0;-->
+<!--$('.carousel-control-next').on('click',function(){-->
+<!--    console.log('next');-->
+<!--    scrollPosition = scrollPosition + cardWidth;-->
+<!--    $('.carousel-inner').animate({scrollLeft:scrollPosition},600);-->
+<!--});-->
+
+<!--</script>-->
      <div class="top-name-cetegory">
 
      {% if name_category_top %}
@@ -26,7 +38,9 @@
                     <div class="vender_cod">{{vendor_code}}</div>
                 </div>
             </div>
+            {% if colors %}
             <div class="label-color">Цвет</div>
+            {% endif %}
             <div class="list_color">
                 {% for y in colors %}
                 <figure class="figure">
@@ -36,17 +50,22 @@
                 </figure>
                 {% endfor %}
             </div>
-            <div class="label-size">Размер полотна</div>
-            <div class="list_size">
-                {% for z in detail_obj.options %}
+            {% if detail_obj.options %}
+                    <div class="label-size">Размер</div>
+            {% endif %}
+             <div class="list_size">
+            {% for z in detail_obj.options %}
+
                 <div class="list-size-obj">
                     <a href="{% url 'doors:detail_card_with_size' detail_obj.id  z.title %}" class="size-buttom">{{z.title}}</a>
                 </div>
                 {% endfor %}
             </div>
             <div class="label-price">Цена:</div>
-            <div class="price">{{detail_obj.price}}</div>
-            <div class="button-buy"><button class="detail">Купить</button></div>
+            <div class="price">
+                {{detail_obj.price}}<i class="fa-solid fa-ruble-sign"></i>
+            </div>
+            <div class="button-buy"><input type="submit" class="detail" value="Купить"></div>
         </div>
     </div>
     <div class="list-description">
@@ -81,27 +100,90 @@
 
     {% if description_number == 2 %}
     {% for data in complectation %}
-        <div class="complectation-table">
-            <table class="complectation">
-                <tbody class="body-complectation">
-                    <tr>
-                        <td>{{data.title}}</td>
-                        <td>{{data.vendor_code}}</td>
-                            {% for picture in data.pictures %}
-                                <td>{{picture.small}}</td>
-                            {% endfor %}
-                        <td>{{data.price}}</td>
-                        <td>
+        <div class="flex_table_main_complectation-table">
+            <div class="table_body_complectation">
+                <div  class="table_body_row-complectation">
+                        <div class="table-body-cell" style="width:200%;">{{data.title}}</div>
+                        <div class="table-body-cell">{{data.vendor_code}}</div>
+                        <div class="table-body-cell"><img src="{{data.pictures.small}}"></div>
+                        <div class="table-body-cell" style="width:50%;">{{data.price}}</div>
+                        <div class="table-body-cell" style="width:50%;">
                             <form action="{% url 'cart:cart_add' data.id data.get_name %}" method="post">
                                 {% csrf_token %}
-                                {{cart_form}}
-                                <input type="submit" value="добавить" >
-                            </form></td>
-                    </tr>
-                </tbody>
-            </table>
+                                {% for f in cart_form %}
+                                    {{f}}
+                                {% endfor %}
+                                <button type="submit"><i class="fa-solid fa-cart-shopping"></i></button>
+                            </form>
+                        </div>
+                </div>
+            </div>
         </div>
+
     {% endfor %}
     {% endif %}
 </div>
+<!--<div id="carouselExample" class="carousel slide">-->
+<!--  <div class="carousel-inner">-->
+<!--    <div class="carousel-item active">-->
+<!--      <div class="card" style="">-->
+<!--          <div class="img-wrapper">-->
+<!--            <img src="https://get.wallhere.com/photo/face-cat-nose-whiskers-skin-kitten-kid-fluffy-mammal-playful-vertebrate-close-up-cat-like-mammal-small-to-medium-sized-cats-carnivoran-domestic-short-haired-cat-700214.jpg"  alt="...">-->
+<!--          </div>-->
+<!--              <div class="card-body">-->
+<!--                <h5 class="card-title">Card title</h5>-->
+<!--                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
+<!--                <a href="#" class="btn btn-primary">Go somewhere</a>-->
+<!--              </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="carousel-item">-->
+<!--      <div class="card" style="">-->
+<!--          <div class="img-wrapper">-->
+<!--            <img src="https://i.pinimg.com/originals/ba/bd/6d/babd6d37eb2dd965c7f1dfb516d54094.jpg"  alt="...">-->
+<!--          </div>-->
+<!--          <div class="card-body">-->
+<!--            <h5 class="card-title">Card title</h5>-->
+<!--            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
+<!--            <a href="#" class="btn btn-primary">Go somewhere</a>-->
+<!--          </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="carousel-item">-->
+<!--      <div class="card" style="">-->
+<!--          <div class="img-wrapper">-->
+<!--              <img src="https://images.wallpaperscraft.com/image/single/cat_face_eyes_29447_1280x720.jpg"  alt="...">-->
+<!--          </div>-->
+<!--          <div class="card-body">-->
+<!--            <h5 class="card-title">Card title</h5>-->
+<!--            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
+<!--            <a href="#" class="btn btn-primary">Go somewhere</a>-->
+<!--          </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--      <div class="carousel-item">-->
+<!--      <div class="card" style="">-->
+<!--          <div class="img-wrapper">-->
+<!--              <img src="https://images.wallpaperscraft.com/image/single/cat_face_eyes_29447_1280x720.jpg"  alt="...">-->
+<!--          </div>-->
+<!--          <div class="card-body">-->
+<!--            <h5 class="card-title">Card title12</h5>-->
+<!--            <p class="card-text">Some quick212 example text to build on the card title and make up the bulk of the card's content.</p>-->
+<!--            <a href="#" class="btn btn-primary">Go somewhere</a>-->
+<!--          </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">-->
+<!--    <span class="carousel-control-prev-icon" aria-hidden="true"></span>-->
+<!--    <span class="visually-hidden">Previous</span>-->
+<!--  </button>-->
+<!--  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">-->
+<!--    <span class="carousel-control-next-icon" aria-hidden="true"></span>-->
+<!--    <span class="visually-hidden">Next</span>-->
+<!--  </button>-->
+<!--</div>-->
+<!--<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>-->
+
+
 {% endblock %}
