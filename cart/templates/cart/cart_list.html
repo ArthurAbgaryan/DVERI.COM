@@ -16,14 +16,25 @@
   <tbody>
   {% for cart in cart_cart %}
     <tr>
+      {% if cart.product.title %}
+        <td scope="row">
+          {% for value in  cart.product.pictures %}
+            <img src="{{value.small}}">
+          {% endfor %}
+        </td>
+        <td>{{cart.product.title}}</td>
+        <td>{{cart.quantity}}</td>
+        <td>{{cart.product.price}}</td>
+      {% else %}
       <td scope="row">
-        {% for value in  cart.product.pictures %}
-        <img src="{{value.small}}">
-        {% endfor %}
+<!--        {% for value in  cart.product1.pictures %}-->
+          <img src="{{cart.product1.pictures.small}}" style="weight:10px;">
+<!--        {% endfor %}-->
       </td>
-      <td>{{cart.product.title}}</td>
+      <td>{{cart.product1.title}}</td>
       <td>{{cart.quantity}}</td>
-      <td>{{cart.product.price}}</td>
+      <td>{{cart.product1.price}}</td>
+{% endif %}
     </tr>
 {% endfor %}
   <tfoot>

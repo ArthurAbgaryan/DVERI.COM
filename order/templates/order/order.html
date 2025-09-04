@@ -9,7 +9,11 @@
     <div class="order-cart">
             <ul class="list-cart">
                  {% for item in cart %}
-                <li>{{item.quantity}} * {{item.product.title}} </li>
+                    {% if item.product.title %}
+                        <li>{{item.quantity}} * {{item.product.title}} </li>
+                    {% else %}
+                <li>{{item.quantity}} * {{item.product1.title}} </li>
+                {% endif %}
                 {% endfor %}
             </ul>
 

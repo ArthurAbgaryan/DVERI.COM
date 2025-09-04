@@ -5,7 +5,64 @@ from .forms import SearchForm, measureForm,filter_metal,filter_montazh,filter_fu
 from django.contrib.postgres.search import SearchVector
 from django.core.mail import send_mail
 from django.conf import settings
+from django.http import JsonResponse
 
+# def index_category_mobile(request,
+#                           category_mobile=None,
+#                           category_next_mobile=None,
+#                           category_next_2_mobile = None):
+#     context={}
+#     exclude_category_model_mezhkomnt = [332, 395, 193, 12, 394, 246]
+#     obj = []
+#     category_id_metal = [491, 541, 535, 537, 308]
+#     category_id_wood = [10,583,519,17,501,18,533,16,15,292,297,507,545,560,518,539,552,522,508,389,584,585,589,588,587,586,595,520,581,561,582,542,521,551,524,398,290,93,550,500,505,502,250,288,289,493,534,530,531,532,495,298,299]
+#     category_skladnih_wood =[553,554,555,557,558,200,504]
+#     category_spec_doors = [302,425,426,424,304]
+#     category_arki = [271,536,236,592,593]
+#     category_plintus = [474,452,454,540,455]
+#     category_deko = [544,547,548,546]
+#     category_furnitura = [320,321,322,333,486,487,324,325,330,326,313,314,359,360,506,361,362,363,364,490,368,489,369,529,370,327,328,329,318]
+#     category_montazh = [57,189,190,229,58]
+#     if category_mobile:
+#         name_category_top = ['Главная']
+#         middle_c_id = []
+#         model_c_id = []
+#         middle_c = categories.objects.filter(parent_id = category_mobile).exclude(id__in= [270,590,238])
+#         if middle_c:
+#             for m_c_id in middle_c:
+#                 middle_c_id.append(m_c_id.id)
+#             model_category_list = categories.objects.filter(parent_id__in = middle_c_id).exclude(id__in = exclude_category_model_mezhkomnt)
+#             if model_category_list:
+#                 for get_id_model in model_category_list:
+#                     model_c_id.append(get_id_model.id)
+#                 obj = products.objects.filter(category_id__in = model_c_id)
+#             else:
+#                 obj = products.objects.filter(category_id__in = middle_c_id)
+#             if category_next_mobile:
+#                 category_next_object = get_object_or_404(categories, id = category_mobile)
+#                 name_category_top.append('/' + category_next_object.title + '/')
+#                 model_c_id = []
+#                 model_1 = categories.objects.filter(parent_id = category_next_mobile).exclude(id__in = exclude_category_model_mezhkomnt)
+#                 if model_1:
+#                     for x in model_1:
+#                         model_c_id.append(x.id)
+#                     obj = products.objects.filter(category_id__in = model_c_id)
+#                 else:
+#                     obj = products.objects.filter(category_id = category_next_mobile)
+#                 if category_next_2_mobile:
+#                     category_next_2_object = get_object_or_404(categories, id = category_next_mobile)
+#                     name_category_top.append(category_next_2_object.title + '/')
+#                     obj = products.objects.filter(category_id = category_next_2_mobile)
+#         else:
+#             obj = products.objects.filter(category_id = category_mobile)
+#         context = {
+#             'midle_cat_mobile': middle_c,
+#             'model_cat_mobile': model_1,
+#             'name_category_top': name_category_top,
+#             'category_id_metal': category_id_metal,
+#             'category': category_mobile,
+#         }
+#     return render(request, 'doors/list_category.html',context)
 
 def index(request,category = None,
           category_next = None,
@@ -187,11 +244,6 @@ def index(request,category = None,
         colors_id.append(c.color_id)
     color = colors.objects.filter(id__in=colors_id)
 
-
-
-
-
-
 #Фильтр метал конец
     context = { 'query':query,
                 'form_filter':form_filter,
@@ -208,10 +260,6 @@ def index(request,category = None,
                 'category':category,
                 'color':color,
                 }
-
-
-
-
 #фильтр для межкомнатных дверей
 
 
@@ -385,3 +433,4 @@ def test_filter(request):
                 'result_list':result_list,
                 }
     return render(request, 'doors/test_filter.html',context)
+

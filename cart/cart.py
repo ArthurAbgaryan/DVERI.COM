@@ -40,7 +40,7 @@ class Cart(object):
         for product in products_s:
             cart[str(product.id)]['product'] = product
         for product_1 in products_s_1:
-            cart[str(product_1.id)]['product'] = product_1
+            cart[str(product_1.id)]['product1'] = product_1
         if cart:
             for item in cart.values():
                 item['price'] = Decimal(item['price'])

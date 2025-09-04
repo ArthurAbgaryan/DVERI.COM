@@ -72,7 +72,8 @@
                                                 </thead>
                                                 <tbody>
                                                 {% for cart_modul in cart %}
-                                                    <tr>
+                                                    {% if cart_modul.product.title %}
+                                                <tr>
 
                                                         <th scope="row">{{cart_modul.product.id}}</th>
                                                                 <td >{% for value in cart_modul.product.pictures %}<img src="{{value.small}}">{% endfor %}</td>
@@ -80,6 +81,16 @@
                                                                 <td>{{cart_modul.quantity}}</td>
                                                                 <td>{{cart_modul.product.price}}</td>
                                                     </tr>
+                                                        {% else %}
+                                                <tr>
+
+                                                        <th scope="row">{{cart_modul.product1.id}}</th>
+                                                                <td >{% for value in cart_modul.product1.pictures %}<img src="{{value.small}}">{% endfor %}</td>
+                                                                <td>{{cart_modul.product1.title}}</td>
+                                                                <td>{{cart_modul.quantity}}</td>
+                                                                <td>{{cart_modul.product1.price}}</td>
+                                                    </tr>
+                                                {% endif %}
                                                 {% endfor %}
 
                                                 </tbody>
@@ -119,7 +130,7 @@
 </div>
     <div class="block-content">
         <div class="navbar-vertical-2">
-            <nav class="navbar navbar-expand-lg bg-body-tertiary">
+            <nav class="navbar navbar-expand-lg bg-warning">
                 <div class="container-fluid">
 
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -164,6 +175,13 @@
 
 {% endblock %}
 </div>
+<!--        <div class="list-category-mobile">-->
+<!--            {% include 'doors/list_category.html' %}-->
+<!--        </div>-->
+        <div class="navbar-mobile">
+            {% include 'doors/navbar_momile.html' %}
+        </div>
+
 </div>
 {% include 'doors/filters/footer.html' %}
 

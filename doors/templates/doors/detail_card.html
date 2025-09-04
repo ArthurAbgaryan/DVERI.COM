@@ -2,18 +2,7 @@
 {% load static %}
 
 {% block content %}
-<!--<script>-->
-<!--var carouselWidth = $('.carousel-inner')[0].scrollWidth;-->
-<!--var cardWidth = $('.carousel-item').width();-->
 
-<!--var scrollPosition = 0;-->
-<!--$('.carousel-control-next').on('click',function(){-->
-<!--    console.log('next');-->
-<!--    scrollPosition = scrollPosition + cardWidth;-->
-<!--    $('.carousel-inner').animate({scrollLeft:scrollPosition},600);-->
-<!--});-->
-
-<!--</script>-->
      <div class="top-name-cetegory">
 
      {% if name_category_top %}
@@ -34,8 +23,10 @@
             <div class="title_color-vender_cod">
                 <div class="title_color">{{color_obj.title}}</div>
                 <div class="vander-cod-label">
+                    {% if vendor_code %}
                     <div class="vender-cod-label">Артикул: </div>
                     <div class="vender_cod">{{vendor_code}}</div>
+                    {% endif %}
                 </div>
             </div>
             {% if colors %}
@@ -57,7 +48,7 @@
             {% for z in detail_obj.options %}
 
                 <div class="list-size-obj">
-                    <a href="{% url 'doors:detail_card_with_size' detail_obj.id  z.title %}" class="size-buttom">{{z.title}}</a>
+                    <a href="{% url 'doors:detail_card_with_size' detail_obj.id  z.title %}" id="sizeDoor" class="size-buttom">{{z.title}}</a>
                 </div>
                 {% endfor %}
             </div>
@@ -65,7 +56,16 @@
             <div class="price">
                 {{detail_obj.price}}<i class="fa-solid fa-ruble-sign"></i>
             </div>
-            <div class="button-buy"><input type="submit" class="detail" value="Купить"></div>
+            <div class="table-body-cell" style="width:50%;">
+                            <form action="{% url 'cart:cart_add' detail_obj.id detail_obj.get_name %}" method="post">
+                                {% csrf_token %}
+                                {% for f in cart_form %}
+                                    {{f}}
+                                {% endfor %}
+                                <button type="submit"><i class="fa-solid fa-cart-shopping"></i></button>
+                            </form>
+                        </div>
+<!--            <div class="button-buy"><input type="submit" class="detail" value="Купить"></div>-->
         </div>
     </div>
     <div class="list-description">
