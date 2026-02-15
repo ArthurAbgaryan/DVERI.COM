@@ -1,9 +1,11 @@
+import json
+from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404,redirect
 from .cart import Cart
 from doors.models import products,accessories
 from .forms import CartForm
 from django.views.decorators.http import require_POST
-
+from django.apps import apps
 @require_POST
 def cart_add(request, product_id,class_name):
     our_class = globals()[class_name]
@@ -15,10 +17,38 @@ def cart_add(request, product_id,class_name):
         cart.add(
             product = object,
             quantity = cd['quantity'],
-            update_quantity= cd['update']
+            update_quantity= cd['update'],
+            class_name=class_name
             )
         cart.save()
         return redirect('doors:index')
+
+@require_POST
+def cart_add_ajax(request):
+    print("--------------------------------------------------------------------------------------------------")
+    data = json.loads(request.body)
+    name_obj = str(data['nameClass'])
+    model_name = apps.get_model('doors',name_obj)
+    id_obj = int(data['id'])
+    update = str(data['update'])
+    if update == 'False':
+        update = False
+    else:
+        update = True
+    value = int(data['value'])
+    objects = get_object_or_404(model_name,id = id_obj)
+    print(objects)
+    cart = Cart(request) #cart = Cart(request.POST)
+    cart.add(
+         product=objects,
+         quantity=value,
+         update_quantity=update,
+         class_name = data['nameClass']
+         )
+    cart.save()
+    print(cart.cart)
+    return JsonResponse({'arthur':'arthur'})
+
 
 def cart_clear(request):
     cart = Cart(request)
@@ -32,7 +62,8 @@ def cart_remove(request, product_id):
 
 def cart_view(request):
     cart = Cart(request)
-    return render(request, 'cart/cart_list.html', {'cart_cart':cart})
+    for x in cart:
+        print("x.product.title",x['product'].title)
+    print("экранизация:",cart.cart)
+    return render(request, 'cart/cart_list.html', {'cart_cart':cart.cart})
 
-
-# Create your views here.

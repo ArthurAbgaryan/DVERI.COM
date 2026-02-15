@@ -48,7 +48,7 @@ body{
     font-weight:100;
     font-height:line-height-base;
     color:#000;
-    background-color:#fff; /*#fff*/
+    background-color:#fff;
     min-width:320px; /*минимальная оптимальная ширина экрана */
     overflow-x: hidden;
     min-height:100vh;
@@ -261,31 +261,79 @@ section {
 }
 /*-------------------------------------------------------------------------------------------------------*/
 /*конец нового стилей шаблона index */
-
+@media(min-width: 1280px){
+    .block-content .list-category{
+        display:none;
+    }
+}
 /*Начало стилей в мобильном разрешении*/
 /*-------------------------------------------------------------------------------------------------*/
 @media(max-width:480px){
     .block-content .kard{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    flex: 0 0 calc(100%/2);
-    margin-top:3%;
-    margin-bottom:3%;
-    background-color:green;
-    }
-
-
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        flex: 0 0 calc(100%/2);
+        margin-top:3%;
+        margin-bottom:3%;
+        background-color:;
+        }
     .block-content {
         display:flex;
         flex-direction:column;
-        }
-}
+    }
+    .block-content .navbar-vertical-2 {
+        display:none;
+            }
+    .block-content .cardc{
+        background-color:;
+        width:100%;
+        margin:0;
+    }
 
+
+    .block-content .cardc .kard-all{
+        width:100%;
+    }
+    .block-content .cardc .kard-all .kard{
+
+        width:10%;
+        background-color:;
+    }
+    .block-content .cardc .kard-all .kard .kard-name{
+
+    }
+
+    .block-content .navbar-mobile .navbar-m{
+        display:flex;
+        justify-content:space-between;
+        background-color:#fc0;
+        tex-decoration:none;
+        display:flex;
+        width:100%;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height:10%;
+    }
+    .block-content .navbar-m a {
+        text-decoration:none;
+    }
+    .block-content .navbar-mobile{
+        width:100%;
+    }
+
+}
 
 /*Конец стилей в мобильном разрешении*/
 /*-------------------------------------------------------------------------------------------------*/
+@media(min-width:1280px){
+    .block-content .navbar-mobile{
+        display:none;
+    }
 
+}
 
 #middle-category{
     padding-left:5%;

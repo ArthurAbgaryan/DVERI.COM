@@ -14,7 +14,7 @@
         <div class="detail-img">
             {% for x in detail_obj.pictures %}
             <figure class="figure">
-                <img class="figure-img img-fluid rounded" src="{{x.large}}">
+                <img class="figure-img img-fluid rounded" src="{{x.large}}" id="pictureDetail">
             </figure>
             {% endfor %}
         </div>
@@ -25,7 +25,7 @@
                 <div class="vander-cod-label">
                     {% if vendor_code %}
                     <div class="vender-cod-label">Артикул: </div>
-                    <div class="vender_cod">{{vendor_code}}</div>
+                    <div class="vender_cod" id="vender-cod">{{vendor_code}}</div>
                     {% endif %}
                 </div>
             </div>
@@ -35,8 +35,11 @@
             <div class="list_color">
                 {% for y in colors %}
                 <figure class="figure">
-                    <a href="{% url 'doors:detail_card_with_color_id' detail_obj.id  y.id %}" class="color-a">
-                        <img class="figure-img img-fluid rounded" id="list_colors_detail"  src="{{y.picture}}">
+<!--                    {% url 'doors:detail_card_with_color_id' detail_obj.id  y.id %}-->
+                    <a  class="color-a" href="{% url 'doors:ajax_change_color' detail_obj.id  y.id %}">
+
+                        {% csrf_token %}
+                        <img  class="figure-img img-fluid rounded"  id="list_colors_detail"  src="{{y.picture}}">
                     </a>
                 </figure>
                 {% endfor %}
@@ -56,10 +59,11 @@
             <div class="price">
                 {{detail_obj.price}}<i class="fa-solid fa-ruble-sign"></i>
             </div>
+
             <div class="table-body-cell" style="width:50%;">
                             <form action="{% url 'cart:cart_add' detail_obj.id detail_obj.get_name %}" method="post">
                                 {% csrf_token %}
-                                {% for f in cart_form %}
+                                {% for f in cart_f %}
                                     {{f}}
                                 {% endfor %}
                                 <button type="submit"><i class="fa-solid fa-cart-shopping"></i></button>
@@ -69,12 +73,12 @@
         </div>
     </div>
     <div class="list-description">
-        <div class="description"><a href="{% url 'doors:l_description' detail_obj.id 1 %}" class="url_description">Описание</a></div>
+        <div class="description"><a href="{% url 'doors:ajax_description' detail_obj.id 1 %}" class="url_description">Описание</a></div>
         {% if complectation %}
-        <div class="complection"><a href="{% url 'doors:l_description' detail_obj.id  2 %}" class="url_complectetion">Комплектация</a></div>
+        <div class="complection"><a href="{% url 'doors:ajax_description' detail_obj.id  2 %}" class="url_complectetion">Комплектация</a></div>
         {% endif %}
         {% if detail_obj.accessory_properties %}
-                <div class="metal-acsesory"><a href="{% url 'doors:l_description' detail_obj.id 3 %}" class="metal-acsesory">Фурнитура</a></div>
+                <div class="metal-acsesory"><a href="{% url 'doors:ajax_description' detail_obj.id 3 %}" class="metal-acsesory">Фурнитура</a></div>
             {% endif %}
         <div class="documents"></div>
         <div class="where-by"><a href="{% url 'doors:contacts' %}">Где купить?</a></div>
@@ -82,7 +86,7 @@
     {% if description_number == 1 %}
         {% for key, values in proper_dict.items %}
             <div class="main-description">
-                <div class="title-description">{{key}}:</div>
+                <div class="title-description">{{key}}</div>
                 <div class="body-description">{{values}}</div>
             </div>
         {% endfor %}
@@ -123,67 +127,24 @@
     {% endfor %}
     {% endif %}
 </div>
-<!--<div id="carouselExample" class="carousel slide">-->
-<!--  <div class="carousel-inner">-->
-<!--    <div class="carousel-item active">-->
-<!--      <div class="card" style="">-->
-<!--          <div class="img-wrapper">-->
-<!--            <img src="https://get.wallhere.com/photo/face-cat-nose-whiskers-skin-kitten-kid-fluffy-mammal-playful-vertebrate-close-up-cat-like-mammal-small-to-medium-sized-cats-carnivoran-domestic-short-haired-cat-700214.jpg"  alt="...">-->
-<!--          </div>-->
-<!--              <div class="card-body">-->
-<!--                <h5 class="card-title">Card title</h5>-->
-<!--                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
-<!--                <a href="#" class="btn btn-primary">Go somewhere</a>-->
-<!--              </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--    <div class="carousel-item">-->
-<!--      <div class="card" style="">-->
-<!--          <div class="img-wrapper">-->
-<!--            <img src="https://i.pinimg.com/originals/ba/bd/6d/babd6d37eb2dd965c7f1dfb516d54094.jpg"  alt="...">-->
-<!--          </div>-->
-<!--          <div class="card-body">-->
-<!--            <h5 class="card-title">Card title</h5>-->
-<!--            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
-<!--            <a href="#" class="btn btn-primary">Go somewhere</a>-->
-<!--          </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--    <div class="carousel-item">-->
-<!--      <div class="card" style="">-->
-<!--          <div class="img-wrapper">-->
-<!--              <img src="https://images.wallpaperscraft.com/image/single/cat_face_eyes_29447_1280x720.jpg"  alt="...">-->
-<!--          </div>-->
-<!--          <div class="card-body">-->
-<!--            <h5 class="card-title">Card title</h5>-->
-<!--            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
-<!--            <a href="#" class="btn btn-primary">Go somewhere</a>-->
-<!--          </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--      <div class="carousel-item">-->
-<!--      <div class="card" style="">-->
-<!--          <div class="img-wrapper">-->
-<!--              <img src="https://images.wallpaperscraft.com/image/single/cat_face_eyes_29447_1280x720.jpg"  alt="...">-->
-<!--          </div>-->
-<!--          <div class="card-body">-->
-<!--            <h5 class="card-title">Card title12</h5>-->
-<!--            <p class="card-text">Some quick212 example text to build on the card title and make up the bulk of the card's content.</p>-->
-<!--            <a href="#" class="btn btn-primary">Go somewhere</a>-->
-<!--          </div>-->
-<!--      </div>-->
-<!--    </div>-->
-<!--  </div>-->
-<!--  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">-->
-<!--    <span class="carousel-control-prev-icon" aria-hidden="true"></span>-->
-<!--    <span class="visually-hidden">Previous</span>-->
-<!--  </button>-->
-<!--  <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">-->
-<!--    <span class="carousel-control-next-icon" aria-hidden="true"></span>-->
-<!--    <span class="visually-hidden">Next</span>-->
-<!--  </button>-->
-<!--</div>-->
-<!--<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>-->
 
-
+<template id="template121">
+            <div class="flex_table_main_complectation-table">
+            <div class="table_body_complectation">
+                <div  class="table_body_row-complectation">
+                    <div class="table-body-cell" style="width:50%;">
+<!--                        <form action="{% url 'cart:cart_add' detail_obj.id detail_obj.get_name %}" method="post">-->
+                            <form action="{% url 'cart:ajax_cart_add' %}" method="post" id="formComplectation" class="cartForm">
+                                {% csrf_token %}
+                                    {% for f in cart_f %}
+                                    {{f}}
+                                {% endfor %}
+                                <a class="isol">{% csrf_token %}<i class="fa-solid fa-cart-shopping" ></i></a>
+                            </form>
+                        </div>
+                </div>
+                </div>
+            </div>
+        </div>
+</template>
 {% endblock %}

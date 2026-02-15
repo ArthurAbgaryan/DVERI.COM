@@ -1,8 +1,6 @@
 
 {% extends 'doors/base_new.html' %}
 {% load static %}
-
-
 {% block content %}
 <table class="table cart_list" id="cart_list">
   <thead>
@@ -14,28 +12,32 @@
     </tr>
   </thead>
   <tbody>
-  {% for cart in cart_cart %}
+
+  {% for cart  in cart_cart.values %}
+ {% for cart1 in cart.values %}
+
     <tr>
-      {% if cart.product.title %}
+      {% if cart1.product.title %}
         <td scope="row">
-          {% for value in  cart.product.pictures %}
+          {% for value in  cart1.product.pictures %}
             <img src="{{value.small}}">
           {% endfor %}
         </td>
-        <td>{{cart.product.title}}</td>
-        <td>{{cart.quantity}}</td>
-        <td>{{cart.product.price}}</td>
+        <td>{{cart1.product.title}}</td>
+        <td>{{cart1.quantity}}</td>
+        <td>{{cart1.product.price}}</td>
       {% else %}
       <td scope="row">
 <!--        {% for value in  cart.product1.pictures %}-->
-          <img src="{{cart.product1.pictures.small}}" style="weight:10px;">
+          <img src="{{cart1.accessories.product.pictures.small}}" style="weight:10px;">
 <!--        {% endfor %}-->
       </td>
-      <td>{{cart.product1.title}}</td>
-      <td>{{cart.quantity}}</td>
-      <td>{{cart.product1.price}}</td>
+      <td>{{cart1.product1.title}}</td>
+      <td>{{cart1.quantity}}</td>
+      <td>{{cart1.product1.price}}</td>
 {% endif %}
     </tr>
+  {% endfor %}
 {% endfor %}
   <tfoot>
 <tr>
