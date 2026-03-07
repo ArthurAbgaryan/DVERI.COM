@@ -21,7 +21,7 @@
         <div class="detail-option">
             <div class="title-obj">{{detail_obj.title}}</div>
             <div class="title_color-vender_cod">
-                <div class="title_color">{{color_obj.title}}</div>
+                <div class="title_color" id="colorTitleMain">{{color_obj.title}}</div>
                 <div class="vander-cod-label">
                     {% if vendor_code %}
                     <div class="vender-cod-label">Артикул: </div>
@@ -61,13 +61,20 @@
             </div>
 
             <div class="table-body-cell" style="width:50%;">
-                            <form action="{% url 'cart:cart_add' detail_obj.id detail_obj.get_name %}" method="post">
+                           <form  action="{%  url 'cart:cart_add_ajax_product' detail_obj.id detail_obj.get_name %}" method="post" id="formComplectation1" class="cartForm">
                                 {% csrf_token %}
                                 {% for f in cart_f %}
-                                    {{f}}
+                                {{f}}
                                 {% endfor %}
-                                <button type="submit"><i class="fa-solid fa-cart-shopping"></i></button>
+                                <a class="isol" id="productDetail">{% csrf_token %}<i class="fa-solid fa-cart-shopping"></i></a>
                             </form>
+<!--                            <form action="{% url 'cart:cart_add' detail_obj.id detail_obj.get_name %}" method="post">-->
+<!--                                {% csrf_token %}-->
+<!--                                {% for f in cart_f %}-->
+<!--                                    {{f}}-->
+<!--                                {% endfor %}-->
+<!--                                <button type="submit"><i class="fa-solid fa-cart-shopping"></i></button>-->
+<!--                            </form>-->
                         </div>
 <!--            <div class="button-buy"><input type="submit" class="detail" value="Купить"></div>-->
         </div>

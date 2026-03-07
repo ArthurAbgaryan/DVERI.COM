@@ -16,7 +16,9 @@ let detailBlock = document.querySelector('.detail-block');
 
 let template = document.getElementById('121');
 
-
+//кнопка корзина товара в детализации
+let buttonProductCart = document.getElementById('productDetail');
+buttonProductCart.addEventListener('click',cartAjax);
 
 
 colorButton.forEach(x=>{
@@ -69,6 +71,9 @@ function testButton(e){
     e.preventDefault();
     console.log("good job")
 }
+
+
+//Отправка товара и  погонажа в корзину с помощью ajax
 async function cartAjax(e){
     e.preventDefault();
     let f = e.target;
@@ -76,25 +81,35 @@ async function cartAjax(e){
     let parentEl = f.parentElement;
     let fotmParent = parentEl.parentElement;
     let hrefCartAjax = fotmParent.getAttribute('action') //ссылка
+    let idAttribute = fotmParent.getAttribute('id')
+
     let fieldValue = fotmParent.quantity.value //значение формы
     let fieldUpdate = fotmParent.update.value //значение update формы
     let newList = hrefCartAjax.split('/'); //массив разделенного href пути
     let numberId = Number(newList[3]) // id обьекта
     let className = newList[4] //название класса обьекта
+    let venderCod = document.getElementById('vender-cod').textContent
     console.log('массив разделенного href пути: ',newList);
     console.log('ссылка post: ',hrefCartAjax);
     console.log('numberId: ',numberId);
     console.log('className: ',className);
     console.log('fieldUpdate: ',fieldUpdate);
     console.log('fieldValue: ',fieldValue);
-
+    if (fotmParent.getAttribute('id') == 'formComplectation'){
+        venderCod = 'no'
+    }
     let data = await getDataAjax('http://127.0.0.1:8000/cart/cart_add_ajax/',
                                   method = "post",
                                   body = JSON.stringify({id:numberId,
                                                          nameClass:className,
                                                          update:fieldUpdate,
-                                                         value:fieldValue}))
+                                                         value:fieldValue,
+                                                         venderCod:venderCod
+                                                         }))
+
+
 }
+
 
 async function descriptionDoors(e){
     e.preventDefault();

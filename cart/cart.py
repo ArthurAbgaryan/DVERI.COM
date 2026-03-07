@@ -88,12 +88,24 @@ class Cart(object):
         #             yield item
 
     def __len__(self):
-        return (sum(item['quantity'] for item in self.cart['products'].values())+
-               sum(item1['quantity'] for item1 in self.cart['accessories'].values()))
+        sumAll = 0
+        list_iter = list(self.cart.keys())
+        if len(self.cart.keys()) > 0:
+            for x in list_iter:
+                sumAll+= sum(item['quantity'] for item in self.cart[x].values())
+                print("ключи:",list_iter,"тип обьекта:", type(list_iter))
+                print("итеррируемый ключ:",x)
+                print("значение словаря:",self.cart[x].values())
+
+        return sumAll
+
 
     def get_total_price(self):
-        return (sum(Decimal(item['price'])*item['quantity'] for item in self.cart['products'].values())+
-                sum(Decimal(item1['price'])*item1['quantity'] for item1 in self.cart['accessories'].values()))
+        sumAll = 0
+        if len(self.cart.keys()) > 0:
+            for x in self.cart.keys():
+                sumAll+= sum(item['quantity']*Decimal(item['price']) for item in self.cart[x].values())
+        return sumAll
 
     def clear(self):
         del self.session[settings.CART_SESSION_ID]

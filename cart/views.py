@@ -27,6 +27,7 @@ def cart_add(request, product_id,class_name):
 def cart_add_ajax(request):
     print("--------------------------------------------------------------------------------------------------")
     data = json.loads(request.body)
+    venderCod = str(data['venderCod'])
     name_obj = str(data['nameClass'])
     model_name = apps.get_model('doors',name_obj)
     id_obj = int(data['id'])
@@ -36,7 +37,10 @@ def cart_add_ajax(request):
     else:
         update = True
     value = int(data['value'])
-    objects = get_object_or_404(model_name,id = id_obj)
+    if venderCod != "no":
+        objects = get_object_or_404(model_name, vendor_code=venderCod)
+    else:
+        objects = get_object_or_404(model_name, id=id_obj)
     print(objects)
     cart = Cart(request) #cart = Cart(request.POST)
     cart.add(
@@ -47,6 +51,28 @@ def cart_add_ajax(request):
          )
     cart.save()
     print(cart.cart)
+    return JsonResponse({'arthur':'arthur'})
+@require_POST
+def cart_add_ajax_product(request):
+    data = json.loads(request.body)
+    name_obj = str(data['nameClass'])
+    model_name = apps.get_model('doors',name_obj)
+    id_obj = int(data['id'])
+    update = str(data['update'])
+    if update == 'False':
+        update = False
+    else:
+        update = True
+    value = int(data['value'])
+    objects = get_object_or_404(model_name,id = id_obj)
+    cart = Cart(request) #cart = Cart(request.POST)
+    cart.add(
+         product=objects,
+         quantity=value,
+         update_quantity=update,
+         class_name = data['nameClass']
+         )
+    cart.save()
     return JsonResponse({'arthur':'arthur'})
 
 
